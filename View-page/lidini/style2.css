@@ -103,7 +103,11 @@ section{
 .note {
     font-size: 120%;
     color: #5b8fdd;
-  }
+}
+.note1 {
+    font-size: 120%;
+    color: #5b8fdd;
+}
 .box {
     background-color: #5b8fdd;
     color: white;
@@ -112,19 +116,18 @@ section{
     height: 200px;
     margin: 30px;
   }
-  .box1 {
-    background: -webkit-linear-gradient(right,#7EB2FF,#004DC1);
-    color: white;
-    border-radius: 25px;
-    width: 250px;
-    height: 200px;
+.container {
+    display: flex;
+    border: 2px solid transparent;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.kotak {
+    flex: 1;
     margin: 30px;
-  }
-  .box3 {
-    background: -webkit-linear-gradient(right,#7EB2FF,#004DC1);
-    color: white;
     border-radius: 25px;
-    width: 700px;
-    height: 250px;
-    margin: 30px;
-  }
+    background-color: #5b8fdd;
+    height: 120px;
+    width: 120px;
+    padding: 20px 35px;
+}
