@@ -1,51 +1,33 @@
 "use client";
 
+import "./style.css";
+
 const LoginPage = () => {
+	return (
+      <main>
+         <div className="wrapper">
+            <form action="">
+               <h1>Login</h1>
+               <div className="input-box">
+                  <p>Username</p>
+                  <input type="text" />
+                  <i className="bx bxs-user"></i>
+               </div>
+               <div className="input-box">
+                  <p>Password</p>
+                  <input type="password" />
+                  <i className="bx bxs-user"></i>
+               </div>
+               <p>Belum punya akun?</p>
+               <br />
+               <div className="btn-field">
+                  <button type="button">Login</button>
+                  <button type="button">Daftar</button>
+               </div>
+            </form>
+         </div>
+      </main>
+	);
+};
 
-   const getUsersData = async () => {
-      try {
-         const response = await fetch('http://localhost:3000/api/users', {
-            method: 'GET',
-            headers: {
-               'Content-Type': 'application/json'
-            }
-         })
-         const data = await response.json()
-         console.log(data)
-      } catch (error) {
-         console.log(error)
-      }
-   }
-
-   const postUsersData = async () => {
-      try {
-         await fetch('http://localhost:3000/api/users', {
-            method: 'POST',
-            headers: {
-               'Content-Type': 'application/json'
-            },
-            // body: JSON.stringify({
-            //    Username: 'user',
-            //    Password: '12345',
-            //    'Nama Panggilan': 'siapa',
-            //    'No WhatsApp': '1234567890'
-            // })
-         
-         })
-         console.log('Success adding data to database')
-      } catch (error) {
-         console.log(error)
-      }
-   }
-
-   return (
-      <div>
-         <h1>Login page</h1>
-
-         <button onClick={getUsersData}>Get Users Data</button>
-         <button onClick={postUsersData}>Add Users Data</button>
-      </div>
-   )
-}
-
-export default LoginPage
+export default LoginPage;
