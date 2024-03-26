@@ -115,7 +115,6 @@ h1{
 .box {
     background-color: #86ADD7;
     border-radius: 25px;
-    max-width: 50rem;
     margin: 0 1rem;
     height: 70px;
     display: flex;
