@@ -7,6 +7,10 @@
 }
 body{
     font-family: "Capriola";
+    background-image: url("./tampilan\ profile.png");
+    background-size: cover;
+    background-position: center;
+    min-height: 100svh;
 }
 nav{
     background:#90B0E0;
@@ -92,3 +96,4 @@ a.active,a:hover{
         left: 0;
     }
 }
+
