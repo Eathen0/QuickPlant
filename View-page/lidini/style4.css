@@ -1,7 +1,6 @@
 *{
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
     font-family: "Poppins", capriola;
 }
 body {
@@ -18,10 +17,33 @@ body {
 }
 img {
     border-radius: 50%;
-    background-position: center;
-    height: 150px;
+    height: 180px;
 }
-h2{
-    text-align: center;
+h1{
     color: white;
+}
+.box {
+    background-color: #86ADD7;
+    border-radius: 25px;
+    width: 1200px;
+    height: 80px;
+    margin: 50px;
+}
+.box button {
+    flex-basis: 50%;
+    background: -webkit-linear-gradient(right,#7EB2FF,#004DC1);
+    color: #f8f8f8;
+    height: 40px;
+    border-radius: 25px;
+    border: 0;
+    outline: 0;
+    cursor: pointer;
+    transition: background 1s;
+    padding: 8px 20px;
+    font-size: 100%;
+}
+.p {
+    color: white;
+    font-size: 22px;
+    padding: 10px 0;
 }
