@@ -7,9 +7,7 @@
 }
 body{
     font-family: "Capriola";
-    background: url('bg.png');
-    background-size: cover;
-    background-position: center;
+    background: url('bg.png')no-repeat;
 }
 nav{
     background:#90B0E0;
@@ -116,7 +114,6 @@ h1{
 .container{
     padding: 15px 9%;
     padding-bottom: 100px;
-    
 }
 
 .container .box-container{
