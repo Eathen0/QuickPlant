@@ -140,7 +140,7 @@ h1{
 }
 
 .container .box-container .box p{
-    color: #777;
+    color: #fafafa;
     font-size: 15px;
     line-height: 1.8;
 }
@@ -162,4 +162,12 @@ h1{
 .container .box-container .box:hover{
     box-shadow: 0 10px 15px rgba(0,0,0,.3);
     transform: scale(1.03);
+}
+.card{
+    height: 130px;
+    width: 230px;
+    padding: 35px;
+    background: #5ba0e0;
+    border-radius: 20px;
+    margin: 44px;
 }
