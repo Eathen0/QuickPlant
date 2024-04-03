@@ -166,8 +166,9 @@ h1{
 .card{
     height: 130px;
     width: 230px;
-    padding: 35px;
+    padding: 25px;
     background: #5ba0e0;
     border-radius: 20px;
-    margin: 44px;
+    margin: 36px;
+    text-align:justify;
 }
