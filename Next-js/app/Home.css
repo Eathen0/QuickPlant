@@ -1,0 +1,440 @@
+.landing-page {
+   font-size: clamp(11pt, 1.5vw, 15pt);
+}
+
+.landing-page .nav {
+   position: fixed;
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   padding: 1em 2em;
+   z-index: 1000;
+   backdrop-filter: blur(5px);
+}
+
+.landing-page .nav ul li {
+   display: inline;
+   margin-right: 1rem;
+}
+
+.landing-page .nav ul li a:hover {
+   color: transparent;
+   opacity: 1;
+}
+
+.landing-page .nav ul li a {
+   transition-property: opacity, color;
+   transition-duration: 200ms;
+   transition-timing-function: ease-in-out;
+   background: var(--col-gradient-secondary);
+   opacity: 0.5;
+   -webkit-background-clip: text;
+   background-clip: text;
+   color: black;
+   font-size: 0.8em;
+}
+
+.landing-page .nav .action-btn-wraper button:nth-child(1) {
+   margin-right: .5rem;
+}
+
+.landing-page .nav .logo-wraper {
+   display: flex;
+   align-items: center;
+   gap: 1rem;
+}
+
+.landing-page .nav .app-logo {
+   width: 6em;
+}
+
+
+
+
+
+.landing-page #home {
+   overflow: hidden;
+}
+
+.landing-page #home .content {
+   height: 100svh;
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.landing-page #home .content .appLogo-title {
+   width: 18em;
+}
+
+.landing-page #home .content p {
+   font-size: 1.5em;
+   width: 20em;
+   text-align: center;
+}
+
+.landing-page #home .content-2 {
+   height: 100svh;
+   position: relative;
+}
+
+.landing-page #home .content-2 p {
+   font-size: 1.2em;
+   max-width: 30em;
+}
+
+
+
+
+
+.landing-page #purpose {
+   min-height: 100svh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.landing-page #purpose .title {
+   text-align: center;
+}
+
+.landing-page #purpose .content {
+   display: flex;
+   justify-content: space-evenly;
+   flex-wrap: wrap;
+   align-items: center;
+   gap: 3em;
+   margin-top: 3em;
+   padding: 0 3em;
+}
+
+.landing-page #purpose .content .item {
+   position: relative;
+}
+
+.landing-page #purpose .content .item-bg {
+   position: relative;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+   border-radius: 50%;
+   background: var(--col-gradient-secondary);
+   
+   width: 18em;
+   height: 18em;
+} .landing-page #purpose .content .item-bg::before {
+   content: '';
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   transform: translate(-50%, -50%);
+   width: 98%;
+   height: 98%;
+   background-color: white;
+   border-radius: 50%;
+}
+
+.landing-page #purpose .content .item h2 {
+   font-size: 2.2em;
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
+   top: 1.5em;
+}
+
+.landing-page #purpose .content .item p {
+   position: absolute;
+   font-size: 1.1em;
+   top: 50%;
+   left: 50%;
+   width: 90%;
+   transform: translate(-50%, -50%);
+   text-align: center;
+}
+
+
+
+
+
+.landing-page #features {
+   min-height: 100svh;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   justify-content: center;
+}
+
+.landing-page #features .title {
+   text-align: center;
+}
+
+.landing-page #features .box-container {
+   width: 100%;
+   padding: 0 3em;
+   margin-top: 2em;
+   display: flex;
+   justify-content: center;
+   gap: 2em;
+}
+
+.landing-page #features .box {
+   display: inline-block;
+   padding: 1em;
+   border-radius: 2rem;
+   width: 50%;
+   min-width: 25em;
+   max-width: 40em;
+   height: 30em;
+   border: solid 2px;
+}
+
+.landing-page #features .box h1 {
+   text-align: center;
+}
+
+.landing-page #features .box ul li {
+   margin-top: 1em;
+   padding: .5em;
+   border-left: solid 1px;
+   border-bottom: solid 1px;
+   border-radius: .5rem;
+}
+
+.landing-page #features .box:nth-child(1) ul li{
+   border-color: var(--col-third);
+}
+
+.landing-page #features .box:nth-child(2) ul li{
+   border-color: var(--col-primary);
+}
+
+
+
+
+
+.landing-page #creators {
+   min-height: 100svh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.landing-page #creators .title {
+   text-align: center;
+   margin-bottom: 2em;
+}
+
+.landing-page #creators .content {
+   padding: 0 3em;
+   display: flex;
+   flex-wrap: wrap;
+   width: 100%;
+   justify-content: space-evenly;
+   column-gap: 8em;
+   row-gap: 2em;
+}
+
+.landing-page #creators .content .group .box:nth-child(2) { 
+   margin-top: 2em;
+}
+
+.landing-page #creators .content .group:nth-child(2) { 
+   padding-top: 6em;
+}
+
+.landing-page #creators .content .box {
+   position: relative;
+   width: 25em;
+   height: 11em;
+   border-radius: 1.5em;
+   padding: 1.6em;
+}
+
+.landing-page #creators .content .box .text {
+   border-bottom: solid 1px grey;
+   margin-bottom: auto;
+}
+
+.landing-page #creators .content .box .text p:nth-child(2) {
+   margin-bottom: 1em;
+   opacity: 0.5;
+}
+
+.landing-page #creators .content .box .text p:nth-child(3) {
+   opacity: 0.5;
+   margin-bottom: 0.2em;
+}
+
+.landing-page #creators .content .box .links {
+   transform: translateY(50%);
+}
+
+.landing-page #creators .content .box .links *:not(:last-child) {
+   margin-right: 0.5em;
+}
+
+.landing-page #creators .content .box.left::before,
+.landing-page #creators .content .box.right::before,
+.landing-page #creators .content .box.left::after,
+.landing-page #creators .content .box.right::after {
+   content: '';
+   position: absolute;
+   aspect-ratio: 1/1;
+   border-radius: 50%;
+   top: 50%;
+   transform: translateY(-50%);
+   background-size: cover;
+}
+
+.landing-page #creators .content .box.left {
+   text-align: right;
+   padding-left: 8em;
+} .landing-page #creators .content .box.left::before {
+   height: inherit;
+   background: white;
+   left: -4em;
+} .landing-page #creators .content .box.left::after {
+   height: 10em;
+   background-image: url('/assets/ex-profile.jpg');
+   left: -3.5em;
+}
+
+.landing-page #creators .content .box.right {
+   text-align: left;
+   padding-right: 8em;
+} .landing-page #creators .content .box.right::before {
+   height: inherit;
+   background: white;
+   right: -4em;
+} .landing-page #creators .content .box.right::after {
+   height: 10em;
+   background-image: url('/assets/ex-profile.jpg');
+   background-size: cover;
+   right: -3.5em;
+}
+
+
+
+
+
+.landing-page #technology {
+   min-height: 60svh;
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
+   align-items: center;
+}
+
+.landing-page #technology .title {
+   text-align: center;
+   margin-bottom: 2em;
+}
+
+.landing-page #technology .content {
+   padding: 0 3em;
+   display: flex;
+   flex-wrap: wrap;
+   width: 100%;
+   justify-content: center;
+   align-items: center;
+   text-align: center;
+   gap: 3em;
+}
+
+.landing-page #technology .content .item h3 {
+   opacity: 0.5;
+   font-weight: normal;
+   width: 9em;
+}
+
+
+
+
+
+.landing-page footer {
+   position: relative;
+   height: 75vh;
+   overflow: hidden;
+}
+
+.landing-page footer .content {
+   position: absolute;
+   bottom: 5em;
+   left: 50%;
+   transform: translateX(-50%);
+   text-align: center;
+   color: white;
+}
+
+.landing-page footer .content .line {
+   width: 30em;
+   height: 1px;
+   background: white;
+   margin-bottom: 1em;
+}
+
+.landing-page footer .content p {
+   opacity: 0.7;
+}
+
+
+
+
+
+@media only screen and (max-width: 768px) {
+   .landing-page .nav ul {
+      display: none;
+   }
+
+   .landing-page .nav .hamburger-menu {
+      display: block;
+   }
+   
+}
+
+@media only screen and (max-width: 870px) {
+   .landing-page #features .box-container {
+      flex-wrap: wrap;
+   }
+
+   .landing-page #features .box-container .box {
+      height: auto;
+      padding: 2em 1.5em;
+   }
+}
+
+@media only screen and (max-width: 943px) {
+   .landing-page #creators .content .group:nth-child(2) { 
+      padding-top: 0;
+   }
+
+   .landing-page #creators .content .group.g1 .box:nth-child(2) {
+      text-align: right;
+      padding-left: 8em;
+      padding-right: 2em;
+   } .landing-page #creators .content .group.g1 .box:nth-child(2)::before {
+      right: 0;
+      left: -4em;
+   } .landing-page #creators .content .group.g1 .box:nth-child(2)::after {
+      right: 0;
+      left: -3.5em;
+   }
+   
+   .landing-page #creators .content .group.g2 .box:nth-child(1) {
+      text-align: left;
+      padding-left: 2em;
+      padding-right: 8em;
+   } .landing-page #creators .content .group.g2 .box:nth-child(1)::before {
+      left: unset;
+      right: -4em;
+   } .landing-page #creators .content .group.g2 .box:nth-child(1)::after {
+      left: unset;
+      right: -3.5em;
+   }
+}

@@ -1,4 +1,4 @@
-main {
+.daftar-page {
    display: flex;
    justify-content: center;
    align-items: center;
@@ -7,7 +7,7 @@ main {
    background-size: cover;
    background-position: center;
 }
-.wrapper{
+.daftar-page .wrapper{
    width: 420px;
    background: transparent;
    border: 2px solid #f4f4f7;
@@ -17,16 +17,16 @@ main {
    border-radius: 10px;
    padding: 40px 40px;
 }
-.wrapper h1{
+.daftar-page .wrapper h1{
    font-size: 36px;
    text-align: center;
 }
-.wrapper .input-box{
+.daftar-page .wrapper .input-box{
    width: 100%;
    height: 50px;
    margin: 30px 0;
 }
-.input-box input{
+.daftar-page .input-box input{
    width: 337px;
    height: 40%;
    border: none;
@@ -36,17 +36,17 @@ main {
    color: #FFFF;
    padding: 20px 45px 20px 20px;
 }
-.input-box input::placeholder{
+.daftar-page .input-box input::placeholder{
    color: #FFFF;
 }
-.input-box i{
+.daftar-page .input-box i{
    position: absolute;
    right: 20px;
    transform: translateY(-50%);
    font-size: 20px;
    top: 50%;
 }
-.wrapper .btn{
+.daftar-page .wrapper .btn{
    width: 20%;
    height: 25px;
    background: #FFFF;
@@ -59,12 +59,12 @@ main {
    color: #60608b;
    font-weight: 600;
 }
-.btn-field{
+.daftar-page .btn-field{
    width: 100%;
    display: flex;
    justify-content: space-between;
 }
-.btn-field button{
+.daftar-page .btn-field button{
    flex-basis: 48%;
    background: -webkit-linear-gradient(left,#7EB2FF,#004DC1);
    color: #0a0a0a;
