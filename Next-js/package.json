@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@next/font": "^14.1.4",
+    "@stylexjs/babel-plugin": "^0.5.1",
+    "@stylexjs/stylex": "^0.5.1",
     "@vercel/postgres": "^0.7.2",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.2",
@@ -20,6 +22,7 @@
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@stylexjs/nextjs-plugin": "^0.5.1",
     "eslint-config-next": "14.1.0",
     "eslint-config-standard": "^17.1.0",
     "eslint-plugin-import": "^2.29.1",

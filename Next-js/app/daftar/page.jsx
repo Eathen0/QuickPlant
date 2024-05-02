@@ -1,11 +1,10 @@
 "use client";
 
-import "./style.css";
+import './style.css';
 
 const Daftar = () => {
 	return (
-      <main>
-
+      <main className="daftar-page">
          <div class="wrapper">
             <form action="">
                <h1>Daftar</h1>

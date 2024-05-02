@@ -1,4 +1,4 @@
-main {
+.login-page {
    display: flex;
    justify-content: center;
    align-items: center;
@@ -8,7 +8,7 @@ main {
    background-position: center;
 }
 
-.wrapper{
+.login-page .wrapper{
    width: 420px;
    padding: 30px 40px;
    margin: 50px auto;
@@ -20,13 +20,13 @@ main {
    border-radius: 10px;
    color: #0a0a0a;
 }
-.wrapper h1{
+.login-page .wrapper h1{
    font-size: 36px;
    text-align: center;
    margin-bottom: 1.2rem;
 }
 
-form input{
+.login-page .form input{
    width: 92%;
    outline: none;
    border: 1px solid #fff;
@@ -35,7 +35,7 @@ form input{
    border-radius: 20px;
    background: #fff;
 }
-.wrapper .btn{
+.login-page .wrapper .btn{
    width: 20%;
    height: 25px;
    background: #FFFF;
@@ -48,17 +48,17 @@ form input{
    color: #60608b;
    font-weight: 600;
 }
-.akun{
+.login-page .akun{
    margin: -5px 0 20px 5px;
    color: #0a0a0a;
    cursor: pointer;
 }
-.btn-field{
+.login-page .btn-field{
    width: 100%;
    display: flex;
    justify-content: space-between;
 }
-.btn-field button{
+.login-page .btn-field button{
    flex-basis: 48%;
    background: -webkit-linear-gradient(left,#7EB2FF,#004DC1);
    color: #0a0a0a;

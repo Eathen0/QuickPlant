@@ -122,7 +122,7 @@ a:hover {
     background: -webkit-linear-gradient(right,#7EB2FF,#004DC1);
     color: white;
     border-radius: 20px;
-    margin: 0px;
+    margin: 100px;
     display: flex;
 }
 .note1 {

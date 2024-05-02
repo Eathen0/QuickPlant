@@ -7,7 +7,10 @@
 }
 body{
     font-family: "Capriola";
-    background: url('bg.png')no-repeat;
+    background: url('bg.png');
+    background-size: cover;
+    background-position: center;
+    min-height: 100svh;
 }
 nav{
     background:#90B0E0;
