@@ -1,6 +1,6 @@
 :root {
 	--col-primary: #0094FF;
-	--col-primary-2: #4892FF;
+	--col-primary-2: #0066ff;
 	--col-secondary: #00D1FF;
 	--col-secondary-2: #ABF0FF;
 	--col-third: #0029FF;
@@ -39,19 +39,27 @@
    color: transparent;
 }
 
-.btn-primary {
-   font-size: 0.8em;
+.btn {
+	position: relative;
+	cursor: pointer;
+	display: inline-block;
+	text-align: center;
+	font-size: 0.8em;
+	padding: 0.7em 2em;
 	border-radius: 99999px;
-	width: 6em;
-	height: 2.5em;
+}
+
+.btn-primary {
 	background: var(--col-gradient-primary);
+   color: white !important;
 } .btn-primary * {
-   color: white;
+   color: white !important;
 }
 
 .btn-outline {
    background: none;
 	border: solid var(--col-primary) 1px;
+	color: var(--col-primary) !important;
 } .btn-outline * {
 	color: var(--col-primary) !important;
 }
@@ -69,4 +77,9 @@
    width: inherit;
    height: .4em;
    border-bottom: 2px solid black;
+}
+
+.link {
+	text-decoration: underline;
+	color: blue;
 }

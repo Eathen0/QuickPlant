@@ -35,7 +35,7 @@
    font-size: 0.8em;
 }
 
-.landing-page .nav .action-btn-wraper button:nth-child(1) {
+.landing-page .nav .action-btn-wraper > *:nth-child(1) {
    margin-right: .5rem;
 }
 

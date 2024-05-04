@@ -1,71 +1,64 @@
 .login-page {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   min-height: 100vh;
-   background: url('/assets/login-bg.svg') no-repeat;
-   background-size: cover;
-   background-position: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	background: url("/assets/login-bg.svg") no-repeat;
+	background-size: cover;
+	background-position: center;
 }
 
-.login-page .wrapper{
-   width: 420px;
-   padding: 30px 40px;
-   margin: 50px auto;
-   background: transparent;
-   border: 2px solid rgba(255, 255, 255, .2);
-   backdrop-filter: blur(20px);
-   text-align: center;
-   box-shadow: 0 0px 10px rgba(0, 0, 0, .2);
-   border-radius: 10px;
-   color: #0a0a0a;
-}
-.login-page .wrapper h1{
-   font-size: 36px;
-   text-align: center;
-   margin-bottom: 1.2rem;
+.login-page .wrapper {
+	width: 420px;
+	padding: 30px 40px;
+	margin: 50px auto;
+	background: transparent;
+	border: 2px solid rgba(255, 255, 255, 0.2);
+	backdrop-filter: blur(20px);
+	text-align: center;
+	box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
+	border-radius: 10px;
 }
 
-.login-page .form input{
-   width: 92%;
-   outline: none;
-   border: 1px solid #fff;
-   padding: 12px 20px;
-   margin-bottom: 30px;
-   border-radius: 20px;
-   background: #fff;
+.login-page form h1 {
+	font-size: 36px;
+	text-align: center;
+	margin-bottom: 1.2rem;
+	color: grey;
 }
-.login-page .wrapper .btn{
-   width: 20%;
-   height: 25px;
-   background: #FFFF;
-   border: none;
-   outline: none;
-   border-radius: 40px;
-   box-shadow: 0 0 10px #0a0a13;
-   cursor: pointer;
-   font-size: 12px;
-   color: #60608b;
-   font-weight: 600;
+
+.login-page form input:not(input[type=submit]) {
+	width: 100%;
+	outline: none;
+	border: 1px solid #fff;
+	padding: 12px 20px;
+	margin-bottom: 30px;
+	border-radius: 20px;
+	background: #fff;
 }
-.login-page .akun{
-   margin: -5px 0 20px 5px;
-   color: #0a0a0a;
-   cursor: pointer;
+
+.login-page .akun {
+	margin: -5px 0 20px 5px;
+	color: #0a0a0a;
+	cursor: pointer;
 }
-.login-page .btn-field{
-   width: 100%;
-   display: flex;
-   justify-content: space-between;
+
+.login-page .action {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
 }
-.login-page .btn-field button{
-   flex-basis: 48%;
-   background: -webkit-linear-gradient(left,#7EB2FF,#004DC1);
-   color: #0a0a0a;
-   height: 40px;
-   border-radius: 25px;
-   border: 0;
-   outline: 0;
-   cursor: pointer;
-   transition: background 1s;
+
+.login-page .action p {
+	display: inline;
+}
+
+
+
+/* USED IN PAGE DAFTAR */
+.login-page form .input-foto {
+	padding: 0 auto;
+	width: fit-content;
+	transform: translateX(55%);
+	margin-bottom: 2em;
 }

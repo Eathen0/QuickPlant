@@ -44,12 +44,12 @@ const Home = () => {
 					</ul>
 
 					<div className="action-btn-wraper">
-						<button className="btn-primary">
-							<Link href="/daftar">daftar</Link>
-						</button>
-						<button className="btn-primary btn-outline">
-							<Link href="/login">login</Link>
-						</button>
+						<Link className="btn btn-primary" href="/daftar">
+							daftar
+						</Link>
+						<Link className="btn btn-outline" href="/login">
+							login
+						</Link>
 					</div>
 				</nav>
 

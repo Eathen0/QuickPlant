@@ -1,42 +1,53 @@
 "use client";
 
-import './style.css';
+import InputImage from "../components/inputImage";
+import "../login/style.css";
+import Link from "next/link";
 
 const Daftar = () => {
 	return (
-      <main className="daftar-page">
-         <div class="wrapper">
-            <form action="">
+		<main className="login-page">
+			<div className="wrapper">
+				<form action="#">
                <h1>Daftar</h1>
-               <div class="input-box">
-                  <p>Nama Panggilan</p>
-                  <input type="text" />
-                  <i class="bx bxs-user"></i>
-               </div>
-               <div class="input-box">
-                  <p>Username</p>
-                  <input type="password" />
-                  <i class="bx bxs-user"></i>
-               </div>
-               <div class="input-box">
-                  <p>Password</p>
-                  <input type="password" />
-                  <i class="bx bxs-user"></i>
-               </div>
-               <div class="input-box">
-                  <p>No WA</p>
-                  <input type="password" />
-                  <i class="bx bxs-user"></i>
-               </div>
-               <p>Sudah punya akun?</p>
-               <br />
-               <div class="btn-field">
-                  <button type="button">Login</button>
-                  <button type="button">Daftar</button>
-               </div>
-            </form>
-         </div>
-      </main>
+
+					<div className="input-foto">
+						<InputImage
+							name="photoProfile"
+							style={{
+								background: "transparent",
+								border: "solid 2px grey",
+                        width: "10em",
+                        height: "10em",
+							}}
+						>
+							<span>photo profile</span>
+						</InputImage>
+					</div>
+
+					<input name="namaLengkap" type="text" placeholder="nama lengkap" />
+					<input name="username" type="text" placeholder="username" />
+					<input name="password" type="password" placeholder="password" />
+					<input name="noWhatsApp" type="text" placeholder="no whatsApp" />
+					<input name="noAbsen" type="text" placeholder="no absen" />
+
+					<div className="action">
+						<p>
+							Sudah punya akun?{" "}
+							<Link href="/login" className="link">
+								login
+							</Link>
+						</p>
+						<input
+							type="submit"
+							value="Daftar"
+							name="daftar"
+							className="btn btn-primary"
+						/>
+					</div>
+				</form>
+			</div>
+		</main>
 	);
 };
 

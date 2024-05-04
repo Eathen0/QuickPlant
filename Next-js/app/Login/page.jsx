@@ -1,13 +1,13 @@
 "use client";
 
-import './style.css';
+import "./style.css";
 
 const LoginPage = () => {
 	return (
-		<main className="login-page">
-			<div class="wrapper">
+		<main class="login-page">
+			<div className="wrapper">
 				<h1>Login</h1>
-				<form className="form" action="#">
+				<form action="#">
 					<input type="text" placeholder="Username" />
 					<input type="password" placeholder="Password" />
 					<div class="akun">Belum punya akun?</div>
