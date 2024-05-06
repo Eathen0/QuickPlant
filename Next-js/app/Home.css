@@ -250,7 +250,7 @@
 
 .landing-page #creators .content .box {
    position: relative;
-   width: 25em;
+   width: 28em;
    height: 11em;
    border-radius: 1.5em;
    padding: 1.6em;
@@ -259,6 +259,11 @@
 .landing-page #creators .content .box .text {
    border-bottom: solid 1px grey;
    margin-bottom: auto;
+}
+
+.landing-page #creators .content .box .text h1 {
+   font-size: 1.3em;
+   margin-bottom: 0.5em;
 }
 
 .landing-page #creators .content .box .text p:nth-child(2) {
@@ -300,9 +305,12 @@
    background: white;
    left: -4em;
 } .landing-page #creators .content .box.left::after {
-   height: 10em;
-   background-image: url('/assets/ex-profile.jpg');
-   left: -3.5em;
+   height: 4.2em;
+   border: solid black 1px;
+   left: -1.6em;
+   font-size: 2.5em;
+   text-align: center;
+   line-height: 4.2em;
 }
 
 .landing-page #creators .content .box.right {
@@ -313,12 +321,29 @@
    background: white;
    right: -4em;
 } .landing-page #creators .content .box.right::after {
-   height: 10em;
-   background-image: url('/assets/ex-profile.jpg');
-   background-size: cover;
-   right: -3.5em;
+   height: 4.2em;
+   border: solid black 1px;
+   right: -1.6em;
+   font-size: 2.5em;
+   text-align: center;
+   line-height: 4.2em;
 }
 
+.landing-page #creators .content .box.right.c1::after {
+   content: 'LI';
+}
+
+.landing-page #creators .content .box.right.c2::after {
+   content: 'MA';
+}
+
+.landing-page #creators .content .box.left.c3::after {
+   content: 'FI';
+}
+
+.landing-page #creators .content .box.left.c4::after {
+   content: 'MU';
+}
 
 
 

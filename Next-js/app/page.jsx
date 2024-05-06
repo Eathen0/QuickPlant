@@ -3,16 +3,34 @@
 import "./Home.css";
 import { Capriola } from "next/font/google";
 import Link from "next/link";
-import { LazyMotion, domAnimation, m } from "framer-motion";
+import { LazyMotion, domAnimation, m, useInView } from "framer-motion";
 import Icons from "./components/icons";
 import Assets from "./components/assets";
+import { useRef } from "react";
 
 const capriola = Capriola({
 	subsets: ["latin"],
 	weight: ["400"],
 });
 
+
 const Home = () => {
+	const ref_whatsThis = useRef(null);
+	const inView_whatThis = useInView(ref_whatsThis, { once: true });
+
+	const ref_purpose = useRef(null);
+	const inView_purpose = useInView(ref_purpose, { once: true });
+
+	const ref_features = useRef(null);
+	const inView_features = useInView(ref_features, { once: true });
+
+	const ref_creators = useRef(null);
+	const inView_creators = useInView(ref_creators, { once: true });
+
+	const ref_technology = useRef(null);
+	const inView_technology = useInView(ref_technology, { once: true });
+
+
 	return (
 		<LazyMotion features={domAnimation}>
 			<main className="landing-page">
@@ -57,9 +75,10 @@ const Home = () => {
 					<header id="home">
 						<div className="content">
 							<m.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
+								initial={{ opacity: 0, translateX: '-10rem' }}
+								animate={{ opacity: 1, translateX: 0}}
 								transition={{ duration: 1 }}
+
 								style={{
 									top: "10em",
 									left: "10em",
@@ -72,6 +91,10 @@ const Home = () => {
 								}}
 							/>
 							<m.div
+								initial={{ opacity: 0, translateX: '-10rem' }}
+								animate={{ opacity: 1, translateX: 0}}
+								transition={{ duration: 1, ease: 'anticipate' }}
+	
 								style={{
 									top: "18em",
 									left: "-3em",
@@ -84,6 +107,10 @@ const Home = () => {
 								}}
 							/>
 							<m.div
+								initial={{ opacity: 0, translateX: '20rem', rotate: '45deg'}}
+								animate={{ opacity: 1, translateX: 0, rotate: '15deg'}}
+								transition={{ duration: 1 }}
+
 								style={{
 									right: "5em",
 									top: "10em",
@@ -110,10 +137,7 @@ const Home = () => {
 						</div>
 
 						<div id="whats-this" className="content-2">
-							<m.div
-								initial={{ opacity: 0 }}
-								animate={{ opacity: 1 }}
-								transition={{ duration: 1 }}
+							<div
 								style={{
 									right: "12em",
 									top: "11em",
@@ -125,7 +149,7 @@ const Home = () => {
 									border: "solid 5px var(--col-primary)",
 								}}
 							/>
-							<m.div
+							<div
 								style={{
 									right: "0em",
 									top: "10em",
@@ -137,7 +161,7 @@ const Home = () => {
 									border: "solid 5px var(--col-secondary)",
 								}}
 							/>
-							<m.div
+							<div
 								style={{
 									bottom: "5em",
 									rotate: "25deg",
@@ -160,11 +184,26 @@ const Home = () => {
 							>
 								<h1
 									className={capriola.className}
-									style={{ marginBottom: "1em" }}
+									ref={ref_whatsThis}
+									style={{ 
+										marginBottom: "1em",
+
+										transform: inView_whatThis? "translateX(0)" : "translateX(-5rem)",
+										opacity: inView_whatThis? "1" : "0",
+										transitionProperty: "transform, opacity",
+										transition: "1s ease-in-out"
+									}}
 								>
 									<span className="highLight">Apa ini?</span>
 								</h1>
-								<p>
+								<p
+									style={{ 
+										transform: inView_whatThis? "translateX(0)" : "translateX(-5rem)",
+										opacity: inView_whatThis? "1" : "0",
+										transitionProperty: "transform, opacity",
+										transition: "1s ease-in-out"
+									}}
+								>
 									QuickPlant adalah website untuk{" "}
 									<span className="highLight">
 										mengelola agenda-agenda kelas
@@ -177,6 +216,11 @@ const Home = () => {
 										marginTop: "3em",
 										alignSelf: "flex-end",
 										textAlign: "right",
+
+										transform: inView_whatThis? "translateX(0)" : "translateX(5rem)",
+										opacity: inView_whatThis? "1" : "0",
+										transitionProperty: "transform, opacity",
+										transition: "1s ease-in-out"
 									}}
 								>
 									Pada website QuickPlant ini siswa yang terjadwal akan
@@ -191,7 +235,7 @@ const Home = () => {
 					</header>
 
 					<section id="purpose">
-						<div className="title">
+						<div className="title" ref={ref_purpose}>
 							<h1
 								className={capriola.className}
 								style={{ fontSize: "2em" }}
@@ -202,7 +246,15 @@ const Home = () => {
 						</div>
 
 						<div className="content">
-							<div className="item">
+							<div 
+								className="item"
+								style={{
+									transform: inView_purpose? "translate(0, 0)" : "translate(-7rem, 7rem)",
+									opacity: inView_purpose? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out"
+								}}
+							>
 								<div
 									style={{
 										background:
@@ -222,7 +274,15 @@ const Home = () => {
 								</p>
 							</div>
 
-							<div className="item">
+							<div 
+								className="item"
+								style={{
+									transform: inView_purpose? "translateY(0)" : "translateY(7rem)",
+									opacity: inView_purpose? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out"
+								}}
+							>
 								<div
 									style={{
 										background:
@@ -242,7 +302,15 @@ const Home = () => {
 								</p>
 							</div>
 
-							<div className="item">
+							<div 
+								className="item"
+								style={{
+									transform: inView_purpose? "translate(0, 0)" : "translate(7rem, 7rem)",
+									opacity: inView_purpose? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out"
+								}}
+							>
 								<div
 									style={{
 										background:
@@ -266,7 +334,7 @@ const Home = () => {
 					</section>
 
 					<section id="features">
-						<div className="title">
+						<div className="title" ref={ref_features}>
 							<h1
 								className={capriola.className}
 								style={{ fontSize: "2em" }}
@@ -279,7 +347,13 @@ const Home = () => {
 						<div className="box-container">
 							<div
 								className="box"
-								style={{ borderColor: "var(--col-third)" }}
+								style={{ 
+									borderColor: "var(--col-third)",
+									transform: inView_features? "translateX(0)" : "translateX(7rem)",
+									opacity: inView_features? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out" 
+								}}
 							>
 								<h1 className={capriola.className}>
 									<span className="highLight">anggota kelas</span>
@@ -291,9 +365,17 @@ const Home = () => {
 									<li>Mengedit data personal ( username, dll )</li>
 								</ul>
 							</div>
+
 							<div
 								className="box"
-								style={{ borderColor: "var(--col-secondary)" }}
+								style={{ 
+									borderColor: "var(--col-secondary)",
+
+									transform: inView_features? "translateX(0)" : "translateX(-7rem)",
+									opacity: inView_features? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out"
+								}}
 							>
 								<h1 className={capriola.className}>
 									<span className="highLight">pengurus kelas</span>
@@ -311,7 +393,7 @@ const Home = () => {
 					</section>
 
 					<section id="creators">
-						<div className="title">
+						<div className="title" ref={ref_creators}>
 							<h1
 								className={capriola.className}
 								style={{ fontSize: "2em" }}
@@ -324,84 +406,108 @@ const Home = () => {
 						<div className="content">
 							<div className="group g1">
 								<div
-									className="box right"
-									style={{ backgroundColor: "#D2F7FF" }}
+									className={"box right c1 " + capriola.className}
+									style={{ 
+										backgroundColor: "#D2F7FF",
+										transform: inView_creators? "translateX(0)" : "translateX(-5rem)",
+										opacity: inView_creators? "1" : "0",
+										transitionProperty: "transform, opacity",
+										transition: "1s ease-in-out"
+									}}
 								>
 									<div className="text">
-										<h1>Someone</h1>
-										<p>someone123@gmail.com</p>
+										<h1>Lidini Hanifah</h1>
+										<p>nothing....</p>
 										<p>birth: 17-6-2007</p>
 									</div>
 
 									<div className="links">
 										<Icons.instagram width="1.4em" height="1.4em" />
-										<Icons.github width="1.4em" height="1.4em" />
-										<Icons.twitter width="1.4em" height="1.4em" />
-										<Icons.tiktok width="1.4em" height="1.4em" />
-										<Icons.linkedin width="1.4em" height="1.4em" />
-										<Icons.facebook width="1.4em" height="1.4em" />
+										<Icons.github    width="1.4em" height="1.4em" />
+										<Icons.twitter   width="1.4em" height="1.4em" />
+										<Icons.tiktok    width="1.4em" height="1.4em" />
+										<Icons.linkedin  width="1.4em" height="1.4em" />
+										<Icons.facebook  width="1.4em" height="1.4em" />
 									</div>
 								</div>
 
 								<div
-									className="box right"
-									style={{ backgroundColor: "#D9C7FF" }}
+									className={"box right c2 " + capriola.className}
+									style={{ 
+										backgroundColor: "#D9C7FF",
+										transform: inView_creators? "translateX(0)" : "translateX(-5rem)",
+										opacity: inView_creators? "1" : "0",
+										transitionProperty: "transform, opacity",
+										transition: "1s ease-in-out 300ms"
+									}}
 								>
 									<div className="text">
-										<h1>Someone</h1>
+										<h1>Maulida Muflihah</h1>
 										<p>someone123@gmail.com</p>
 										<p>birth: 17-6-2007</p>
 									</div>
 
 									<div className="links">
 										<Icons.instagram width="1.4em" height="1.4em" />
-										<Icons.github width="1.4em" height="1.4em" />
-										<Icons.twitter width="1.4em" height="1.4em" />
-										<Icons.tiktok width="1.4em" height="1.4em" />
-										<Icons.linkedin width="1.4em" height="1.4em" />
-										<Icons.facebook width="1.4em" height="1.4em" />
+										<Icons.github    width="1.4em" height="1.4em" />
+										<Icons.twitter   width="1.4em" height="1.4em" />
+										<Icons.tiktok    width="1.4em" height="1.4em" />
+										<Icons.linkedin  width="1.4em" height="1.4em" />
+										<Icons.facebook  width="1.4em" height="1.4em" />
 									</div>
 								</div>
 							</div>
 
 							<div className="group g2">
 								<div
-									className="box left"
-									style={{ backgroundColor: "#C0CAFF" }}
+									className={"box left c3 " + capriola.className}
+									style={{ 
+										backgroundColor: "#C0CAFF",
+										transform: inView_creators? "translateX(0)" : "translateX(5rem)",
+										opacity: inView_creators? "1" : "0",
+										transitionProperty: "transform, opacity",
+										transition: "1s ease-in-out 600ms"
+									}}
 								>
 									<div className="text">
-										<h1>Someone</h1>
+										<h1>Fitriana Nur Oktafiani</h1>
 										<p>someone123@gmail.com</p>
 										<p>birth: 17-6-2007</p>
 									</div>
 
 									<div className="links">
 										<Icons.instagram width="1.4em" height="1.4em" />
-										<Icons.github width="1.4em" height="1.4em" />
-										<Icons.twitter width="1.4em" height="1.4em" />
-										<Icons.tiktok width="1.4em" height="1.4em" />
-										<Icons.linkedin width="1.4em" height="1.4em" />
-										<Icons.facebook width="1.4em" height="1.4em" />
+										<Icons.github    width="1.4em" height="1.4em" />
+										<Icons.twitter   width="1.4em" height="1.4em" />
+										<Icons.tiktok    width="1.4em" height="1.4em" />
+										<Icons.linkedin  width="1.4em" height="1.4em" />
+										<Icons.facebook  width="1.4em" height="1.4em" />
 									</div>
 								</div>
 
 								<div
-									className="box left"
-									style={{ backgroundColor: "#C5E6FF" }}
+									className={"box left c4 " + capriola.className}
+									style={{ 
+										backgroundColor: "#C5E6FF",
+										transform: inView_creators? "translateX(0)" : "translateX(5rem)",
+										opacity: inView_creators? "1" : "0",
+										transitionProperty: "transform, opacity",
+										transition: "1s ease-in-out 900ms"
+									}}
 								>
 									<div className="text">
-										<h1>Someone</h1>
+										<h1>Muhammad Adam M.N.A</h1>
 										<p>someone123@gmail.com</p>
 										<p>birth: 17-6-2007</p>
 									</div>
 
 									<div className="links">
 										<Icons.instagram width="1.4em" height="1.4em" />
-										<Icons.github width="1.4em" height="1.4em" />
-										<Icons.twitter width="1.4em" height="1.4em" />
-										<Icons.tiktok width="1.4em" height="1.4em" />
-										<Icons.linkedin width="1.4em" height="1.4em" />
-										<Icons.facebook width="1.4em" height="1.4em" />
+										<Icons.github    width="1.4em" height="1.4em" />
+										<Icons.twitter   width="1.4em" height="1.4em" />
+										<Icons.tiktok    width="1.4em" height="1.4em" />
+										<Icons.linkedin  width="1.4em" height="1.4em" />
+										<Icons.facebook  width="1.4em" height="1.4em" />
 									</div>
 								</div>
 							</div>
@@ -419,8 +525,16 @@ const Home = () => {
 							<p>yang di gunakan pada website ini</p>
 						</div>
 
-						<div className="content">
-							<div className="item">
+						<div className="content" ref={ref_technology}>
+							<div 
+								className="item"
+								style={{
+									transform: inView_technology? "translateY(0)" : "translateY(7rem)",
+									opacity: inView_technology? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out"
+								}}
+							>
 								<svg
 									width="6.5em"
 									height="8.5em"
@@ -447,7 +561,15 @@ const Home = () => {
 								</svg>
 								<h3>HTML 5</h3>
 							</div>
-							<div className="item">
+							<div 
+								className="item"
+								style={{
+									transform: inView_technology? "translateY(0)" : "translateY(5rem)",
+									opacity: inView_technology? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out"
+								}}
+							>
 								<svg
 									width="6.5em"
 									height="8.5em"
@@ -484,7 +606,15 @@ const Home = () => {
 								<h3>CSS 3</h3>
 							</div>
 
-							<div className="item">
+							<div 
+								className="item"
+								style={{
+									transform: inView_technology? "translateY(0)" : "translateY(5rem)",
+									opacity: inView_technology? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out"
+								}}
+							>
 								<svg
 									width="6.5em"
 									height="8.5em"
@@ -501,7 +631,15 @@ const Home = () => {
 								<h3>Framer Motion 11</h3>
 							</div>
 
-							<div className="item">
+							<div 
+								className="item"
+								style={{
+									transform: inView_technology? "translateY(0)" : "translateY(7rem)",
+									opacity: inView_technology? "1" : "0",
+									transitionProperty: "transform, opacity",
+									transition: "1s ease-in-out"
+								}}
+							>
 								<svg
 									width="6.5em"
 									height="8.5em"

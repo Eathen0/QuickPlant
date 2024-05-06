@@ -60,7 +60,9 @@ export async function POST(request, res) {
 
 	const test = new Request()
 	test.formData().then((data) => {
-      data.
+      data.forEach((value, key) => {
+			console.log(key, value)
+		})
    })
 
 	try {

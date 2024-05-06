@@ -1,5 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import LoadingBar from './components/loadingBar'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,7 +16,10 @@ export default function RootLayout({ children }) {
 			<head>
 				<link rel="shortcut icon" href="/website-ico.png" type="image/x-icon" />
 			</head>
-			<body className={inter.className}>{children}</body>
+			<body className={inter.className}>
+				<LoadingBar key={"key-" + Math.random.toString()} />
+				{children}
+			</body>
 		</html>
 	)
 }
