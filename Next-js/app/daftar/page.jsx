@@ -1,7 +1,7 @@
 "use client";
 
 import InputImage from "../components/inputImage";
-import "../login/style.css";
+import "./style.css";
 import Link from "next/link";
 
 const Daftar = () => {
