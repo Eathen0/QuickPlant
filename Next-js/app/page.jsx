@@ -75,6 +75,7 @@ const Home = () => {
 					<header id="home">
 						<div className="content">
 							<m.div
+								className="hidden-on-mobile"
 								initial={{ opacity: 0, translateX: '-10rem' }}
 								animate={{ opacity: 1, translateX: 0}}
 								transition={{ duration: 1 }}
@@ -107,10 +108,11 @@ const Home = () => {
 								}}
 							/>
 							<m.div
+								className="hidden-on-mobile"
 								initial={{ opacity: 0, translateX: '20rem', rotate: '45deg'}}
 								animate={{ opacity: 1, translateX: 0, rotate: '15deg'}}
 								transition={{ duration: 1 }}
-
+								
 								style={{
 									right: "5em",
 									top: "10em",
@@ -150,6 +152,7 @@ const Home = () => {
 								}}
 							/>
 							<div
+								className="hidden-on-mobile"
 								style={{
 									right: "0em",
 									top: "10em",
@@ -162,6 +165,7 @@ const Home = () => {
 								}}
 							/>
 							<div
+								className="hidden-on-mobile"
 								style={{
 									bottom: "5em",
 									rotate: "25deg",
