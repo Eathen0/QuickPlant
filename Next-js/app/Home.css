@@ -5,8 +5,8 @@
 
 .landing-page .nav {
    position: fixed;
-   width: 100%;
    display: flex;
+   width: 100vw;
    justify-content: space-between;
    align-items: center;
    padding: 1em 2em;
@@ -350,6 +350,7 @@
 
 
 .landing-page #technology {
+   margin-top: 5em;
    min-height: 60svh;
    display: flex;
    flex-direction: column;
@@ -438,6 +439,14 @@
 @media only screen and (max-width: 943px) {
    .landing-page #creators .content .group:nth-child(2) { 
       padding-top: 0;
+   }
+
+   .landing-page #creators .content .group .text h1 {
+      font-size: 1em;
+   }
+
+   .landing-page #creators .content .group .box {
+      width: 23em;
    }
 
    .landing-page #creators .content .group.g1 .box:nth-child(2) {
