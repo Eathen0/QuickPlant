@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
 				<link rel="shortcut icon" href="/website-ico.png" type="image/x-icon" />
 			</head>
 			<body className={inter.className}>
-				<LoadingBar key={"key-" + Math.random.toString()} />
+				{/* <LoadingBar key={"key-" + Math.random.toString()} /> */}
 				{children}
 			</body>
 		</html>
