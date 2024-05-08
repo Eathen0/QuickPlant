@@ -33,14 +33,12 @@ const Home = () => {
 	
 	const [isShow, setIsShow] = useState(false);
 
-	const handdleFocus = () => {
+	const openMobileMenu = () => {
 		setIsShow(true);
 	}
 
-	const handdleBlur = () => {
-		setTimeout(() => {
-			setIsShow(false);
-		}, 200);
+	const closeMobileMenu = () => {
+		setIsShow(false);
 	}
 
 
@@ -49,43 +47,139 @@ const Home = () => {
 			<main className="landing-page">
 				<nav className={capriola.className + " nav"}>
 					<div className="logo-wraper">
-						<div className="hamburger-menu" onFocus={handdleFocus} onBlur={handdleBlur} tabIndex={0} />
+						<div className="hamburger-menu" onClick={openMobileMenu} tabIndex={0} />
 						<img className="app-logo" src="/appLogo.svg" alt="app logo" />
 
 						<AnimatePresence mode="popLayout">
 							{isShow ? (
-								<m.ul className="menu-show-on-mobile">
-									<m.li
-										onClick={(ev) => {console.log(ev.target)}}>
-										
-										<Link href="#home">Home</Link>
-									</m.li>
-									<m.li
-
-									>
-										<Link href="#whats-this">what's-this</Link>
-									</m.li>
-									<m.li
-
-									>
-										<Link href="#purpose">purpose</Link>
-									</m.li>
-									<m.li
-
-									>
-										<Link href="#features">features</Link>
-									</m.li>
-									<m.li
-
-									>
-										<Link href="#creators">creators</Link>
-									</m.li>
-									<m.li
-
-									>
-										<Link href="#technology">technology</Link>
-									</m.li>
-								</m.ul>
+								<>
+									<div 
+										style={{
+											position: "fixed",
+											top: "0",
+											left: "0",
+											width: "100%",
+											height: "100vh",
+										}}
+										onClick={closeMobileMenu}
+									/>
+									<m.ul className="menu-show-on-mobile">
+										<m.li 
+											initial={{
+												opcity: 0,
+												translateY: "-5em",
+											}}
+											animate={{
+												opacity: 1,
+												translateY: 0,
+											}}
+											exit={{
+												opacity: 0,
+												translateY: "-5em",
+											}}
+											transition={{
+												delay: 0
+											}}
+											onClick={closeMobileMenu}>
+											<Link href="#home">Home</Link>
+										</m.li>
+										<m.li 
+											initial={{
+												opcity: 0,
+												translateY: "-5em",
+											}}
+											animate={{
+												opacity: 1,
+												translateY: 0,
+											}}
+											exit={{
+												opacity: 0,
+												translateY: "-5em",
+											}}
+											transition={{
+												delay: 0.05
+											}}
+											onClick={closeMobileMenu} >
+											<Link href="#whats-this">what's-this</Link>
+										</m.li>
+										<m.li 
+											initial={{
+												opcity: 0,
+												translateY: "-5em",
+											}}
+											animate={{
+												opacity: 1,
+												translateY: 0,
+											}}
+											exit={{
+												opacity: 0,
+												translateY: "-5em",
+											}}
+											transition={{
+												delay: 0.1
+											}}
+											onClick={closeMobileMenu} >
+											<Link href="#purpose">purpose</Link>
+										</m.li>
+										<m.li 
+											initial={{
+												opcity: 0,
+												translateY: "-5em",
+											}}
+											animate={{
+												opacity: 1,
+												translateY: 0,
+											}}
+											exit={{
+												opacity: 0,
+												translateY: "-5em",
+											}}
+											transition={{
+												delay: 0.15
+											}}
+											onClick={closeMobileMenu} >
+											<Link href="#features">features</Link>
+										</m.li>
+										<m.li 
+											initial={{
+												opcity: 0,
+												translateY: "-5em",
+											}}
+											animate={{
+												opacity: 1,
+												translateY: 0,
+											}}
+											exit={{
+												opacity: 0,
+												translateY: "-5em",
+											}}
+											transition={{
+												delay: 0.2
+											}}
+											onClick={closeMobileMenu} >
+											<Link href="#creators">creators</Link>
+										</m.li>
+										<m.li 
+											initial={{
+												opcity: 0,
+												translateY: "-5em",
+											}}
+											animate={{
+												opacity: 1,
+												translateY: 0,
+											}}
+											exit={{
+												opacity: 0,
+												translateY: "-5em",
+											}}
+											transition={{
+												delay: 0.25
+											}}
+											onClick={closeMobileMenu} >
+											<Link href="#technology">technology</Link>
+										</m.li>
+									</m.ul>
+								</>
 								) : ""
 							}
 						</AnimatePresence>
