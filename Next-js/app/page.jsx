@@ -3,10 +3,10 @@
 import "./Home.css";
 import { Capriola } from "next/font/google";
 import Link from "next/link";
-import { LazyMotion, domAnimation, m, useInView } from "framer-motion";
+import { AnimatePresence, LazyMotion, domAnimation, m, useInView } from "framer-motion";
 import Icons from "./components/icons";
 import Assets from "./components/assets";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 const capriola = Capriola({
 	subsets: ["latin"],
@@ -30,17 +30,68 @@ const Home = () => {
 	const ref_technology = useRef(null);
 	const inView_technology = useInView(ref_technology, { once: true });
 
+	
+	const [isShow, setIsShow] = useState(false);
+
+	const handdleFocus = () => {
+		setIsShow(true);
+	}
+
+	const handdleBlur = () => {
+		setTimeout(() => {
+			setIsShow(false);
+		}, 200);
+	}
+
 
 	return (
 		<LazyMotion features={domAnimation}>
 			<main className="landing-page">
 				<nav className={capriola.className + " nav"}>
 					<div className="logo-wraper">
-						<div className="hamburger-menu" />
+						<div className="hamburger-menu" onFocus={handdleFocus} onBlur={handdleBlur} tabIndex={0} />
 						<img className="app-logo" src="/appLogo.svg" alt="app logo" />
+
+						<AnimatePresence mode="popLayout">
+							{isShow ? (
+								<m.ul className="menu-show-on-mobile">
+									<m.li
+										onClick={(ev) => {console.log(ev.target)}}>
+										
+										<Link href="#home">Home</Link>
+									</m.li>
+									<m.li
+
+									>
+										<Link href="#whats-this">what's-this</Link>
+									</m.li>
+									<m.li
+
+									>
+										<Link href="#purpose">purpose</Link>
+									</m.li>
+									<m.li
+
+									>
+										<Link href="#features">features</Link>
+									</m.li>
+									<m.li
+
+									>
+										<Link href="#creators">creators</Link>
+									</m.li>
+									<m.li
+
+									>
+										<Link href="#technology">technology</Link>
+									</m.li>
+								</m.ul>
+								) : ""
+							}
+						</AnimatePresence>
 					</div>
 
-					<ul>
+					<ul className="menu-show-on-desktop">
 						<li>
 							<Link href="#home">Home</Link>
 						</li>
@@ -75,7 +126,6 @@ const Home = () => {
 					<header id="home">
 						<div className="content">
 							<m.div
-								className="hidden-on-mobile"
 								initial={{ opacity: 0, translateX: '-10rem' }}
 								animate={{ opacity: 1, translateX: 0}}
 								transition={{ duration: 1 }}
@@ -85,12 +135,18 @@ const Home = () => {
 									left: "10em",
 									rotate: "35deg",
 
-									width: "10em",
-									height: "10em",
 									position: "absolute",
-									border: "solid 5px var(--col-primary)",
 								}}
-							/>
+								>
+								<div 
+									className="hidden-on-mobile"
+									style={{
+										width: "10em",
+										height: "10em",
+										border: "solid 5px var(--col-primary)",
+									}}
+								/>
+							</m.div>
 							<m.div
 								initial={{ opacity: 0, translateX: '-10rem' }}
 								animate={{ opacity: 1, translateX: 0}}
@@ -108,7 +164,6 @@ const Home = () => {
 								}}
 							/>
 							<m.div
-								className="hidden-on-mobile"
 								initial={{ opacity: 0, translateX: '20rem', rotate: '45deg'}}
 								animate={{ opacity: 1, translateX: 0, rotate: '15deg'}}
 								transition={{ duration: 1 }}
@@ -118,12 +173,18 @@ const Home = () => {
 									top: "10em",
 									rotate: "15deg",
 
-									width: "15em",
-									height: "15em",
 									position: "absolute",
-									border: "solid 5px var(--col-third)",
 								}}
-							/>
+								>
+								<div 
+									className="hidden-on-mobile"
+									style={{
+										width: "15em",
+										height: "15em",
+										border: "solid 5px var(--col-third)"
+									}}
+								/>
+							</m.div>
 
 							<img
 								className="appLogo-title"
@@ -716,7 +777,7 @@ const Home = () => {
 						height: '50%',
 						width: '100%'
 					}} />
-					<Assets.svgCloud width="100%" style={{position: 'absolute', bottom: '0em'}} />
+					<Assets.svgCloud width="100%" className="cloudSvg" style={{position: 'absolute'}} />
 					<div style={{
 						position: 'absolute',
 						bottom: 0,

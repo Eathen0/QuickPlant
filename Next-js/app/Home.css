@@ -14,17 +14,52 @@
    backdrop-filter: blur(5px);
 }
 
-.landing-page .nav ul li {
+.landing-page .nav .menu-show-on-mobile {
+   display: none;
+
+   position: absolute;
+   top: 3em;
+   backdrop-filter: blur(5px);
+}
+
+.landing-page .nav .menu-show-on-mobile li {
+   width: 10em;
+   padding: 0.5em;
+   border: solid 2px var(--col-primary);
+   border-radius: 5em;
+   cursor: pointer;
+}
+
+.landing-page .nav .menu-show-on-mobile li:not(:last-child) {
+   margin-bottom: 0.7em;
+}
+
+.landing-page .nav .menu-show-on-mobile li a {
+   transition-property: opacity, color;
+   transition-duration: 200ms;
+   transition-timing-function: ease-in-out;
+   background: var(--col-gradient-secondary);
+   color: black;
+   -webkit-background-clip: text;
+   background-clip: text;
+}
+
+.landing-page .nav .menu-show-on-mobile li:hover a {
+   color: transparent;
+
+}
+
+.landing-page .nav .menu-show-on-desktop li {
    display: inline;
    margin-right: 1rem;
 }
 
-.landing-page .nav ul li a:hover {
+.landing-page .nav .menu-show-on-desktop li a:hover {
    color: transparent;
    opacity: 1;
 }
 
-.landing-page .nav ul li a {
+.landing-page .nav .menu-show-on-desktop li a {
    transition-property: opacity, color;
    transition-duration: 200ms;
    transition-timing-function: ease-in-out;
@@ -41,6 +76,7 @@
 }
 
 .landing-page .nav .logo-wraper {
+   position: relative;
    display: flex;
    align-items: center;
    gap: 1rem;
@@ -69,12 +105,14 @@
 
 .landing-page #home .content .appLogo-title {
    width: 18em;
+   z-index: 9999;
 }
 
 .landing-page #home .content p {
    font-size: 1.5em;
    width: 20em;
    text-align: center;
+   z-index: 9999;
 }
 
 .landing-page #home .content-2 {
@@ -386,7 +424,7 @@
 
 .landing-page footer {
    position: relative;
-   height: 75vh;
+   height: 35em;
    overflow: hidden;
 }
 
@@ -406,6 +444,10 @@
    margin-bottom: 1em;
 }
 
+.landing-page footer .cloudSvg {
+   bottom: 0em;
+}
+
 .landing-page footer .content p {
    opacity: 0.7;
 }
@@ -415,12 +457,45 @@
 
 
 @media only screen and (max-width: 768px) {
-   .landing-page .nav ul {
+   .landing-page .nav .menu-show-on-desktop {
       display: none;
    }
 
    .landing-page .nav .hamburger-menu {
       display: block;
+   }
+   
+   .landing-page .nav .menu-show-on-mobile {
+      display: block;
+   }
+
+   .landing-page #home .content {
+      scale: 0.8;
+   }
+   
+   .landing-page #creators .content {
+      padding: 0;
+      scale: 0.8;
+   }
+
+   .landing-page #home .content-2 {
+      scale: 0.8;
+   }
+
+   .landing-page #purpose .content {
+      scale: 0.8;
+   }
+
+   .landing-page #features .box-container {
+      scale: 0.8;
+   }
+
+   .landing-page #technology .content {
+      scale: 0.8;
+   }
+
+   .landing-page footer .cloudSvg {
+      bottom: -11%;
    }
 }
 
