@@ -3,7 +3,7 @@
 	justify-content: center;
 	align-items: center;
 	min-height: 100vh;
-	background: url("/assets/login-bg.svg") no-repeat;
+	background: url("/assets/website-bg.png") no-repeat;
 	background-size: cover;
 	background-position: center;
 }
@@ -18,19 +18,19 @@
 	text-align: center;
 	box-shadow: 0 0px 10px rgba(0, 0, 0, 0.2);
 	border-radius: 10px;
+	color: #0a0a0a;
 }
 
-.login-page form h1 {
+.login-page .wrapper h1 {
 	font-size: 36px;
 	text-align: center;
 	margin-bottom: 1.2rem;
-	color: grey;
 }
 
-.login-page form input:not(input[type=submit]) {
-	width: 100%;
+.login-page form input:not(.btn) {
+	width: 92%;
 	outline: none;
-	border: 1px solid #fff;
+	border: 1px solid black;
 	padding: 12px 20px;
 	margin-bottom: 30px;
 	border-radius: 20px;
@@ -43,22 +43,12 @@
 	cursor: pointer;
 }
 
-.login-page .action {
+.login-page .btn-field {
+	width: 100%;
 	display: flex;
-	justify-content: space-between;
-	align-items: center;
+	gap: 1em;
 }
 
-.login-page .action p {
-	display: inline;
-}
-
-
-
-/* USED IN PAGE DAFTAR */
-.login-page form .input-foto {
-	padding: 0 auto;
-	width: fit-content;
-	transform: translateX(55%);
-	margin-bottom: 2em;
+.login-page .btn {
+	flex-grow: 1;
 }

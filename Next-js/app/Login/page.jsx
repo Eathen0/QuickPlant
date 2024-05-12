@@ -1,20 +1,21 @@
 "use client";
 
+import Link from "next/link";
 import "./style.css";
 
 const LoginPage = () => {
 	return (
-		<main class="login-page">
+		<main className="login-page">
 			<div className="wrapper">
 				<h1>Login</h1>
-				<form action="#">
+				<form action="#" method="POST">
 					<input type="text" placeholder="Username" />
 					<input type="password" placeholder="Password" />
-					<div class="akun">Belum punya akun?</div>
+					<div className="akun">Belum punya akun?</div>
 					<br />
-					<div class="btn-field">
-						<button type="button">Login</button>
-						<button type="button">Daftar</button>
+					<div className="btn-field">
+						<Link className="btn btn-outline" href="/daftar">Daftar</Link>
+						<input className="btn btn-primary" type="submit" value="Login" name="send-login" />
 					</div>
 				</form>
 			</div>

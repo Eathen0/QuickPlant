@@ -33,7 +33,7 @@ const Daftar = () => {
 
 					<div className="action">
 						<p>
-							Sudah punya akun?{" "}
+							Sudah punya akun?
 							<Link href="/login" className="link">
 								login
 							</Link>
@@ -41,7 +41,7 @@ const Daftar = () => {
 						<input
 							type="submit"
 							value="Daftar"
-							name="daftar"
+							name="send-daftar"
 							className="btn btn-primary"
 						/>
 					</div>
