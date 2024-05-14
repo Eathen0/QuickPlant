@@ -1,9 +1,8 @@
 {
   "compilerOptions": {
     "paths": {
-      "@/*": ["./api/*"],
-      "@/utils/schema/*": ["./app/utils/schema/*"],
-      "@/utils/*": ["./app/utils/*"],
+      "@/*": ["./app/*"],
+      "@/middleware": ["./app/middleware.js"],
     }
   }
 }

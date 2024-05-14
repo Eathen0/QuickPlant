@@ -38,24 +38,24 @@ export async function POST(request) {
 			);
 		}
 
-		
-		
+
+
 		// ---SESSION ACCESS CODE---
-		const sessionAccessCode = generateAccessSession();
+		const sessionCode = generateAccessSession();
 
 
 
 		// JWT ---REFRESH TOKEN--- SIGN
-		const insert = await sql`INSERT INTO session_access (id, code) VALUES(DEFAULT, ${sessionAccessCode})`;
+		const insert = await sql`INSERT INTO session_access (id, code) VALUES(DEFAULT, ${sessionCode})`;
 		if (insert) {
-			const result = await sql`SELECT id FROM session_access WHERE code = ${sessionAccessCode}`;
+			const result = await sql`SELECT id FROM session_access WHERE code = ${sessionCode}`;
 			var refresh_token = jwt.sign({ sessionId: result.rows[0].id }, process.env.JWT_SECRET, { algorithm: "HS256" });
 		}
 
 
 
 		// JWT ---ACCESS TOKEN--- SIGN
-		let access_token = jwt.sign({ username, idRole, sessionAccessCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
+		let access_token = jwt.sign({ username, idRole, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
 
 
 

@@ -6,7 +6,6 @@ env.config();
 
 export async function POST(request) {
    try {
-      
       const access_token_decoded = jwt.verify(request.headers['authorization'], process.env.JWT_SECRET, { algorithm: "HS256", complete: true });
       const refresh_token_decoded = jwt.verify(request.cookies.get("refresh_token"), process.env.JWT_SECRET, { algorithm: "HS256", complete: true });
       

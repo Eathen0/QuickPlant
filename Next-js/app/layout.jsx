@@ -14,8 +14,8 @@ export default function RootLayout({ children }) {
 	return (
 		<html lang="id">
 			<head>
-				{/* <link rel="apple-touch-icon" href="/website-ico.png" />
-				<link rel="shortcut icon" href="/website-ico.png" type="image/x-icon" /> */}
+				<link rel="apple-touch-icon" href="/icon.png" />
+				<link rel="shortcut icon" href="/icon.png" type="image/x-icon" />
 			</head>
 			<body className={inter.className}>
 				{/* <LoadingBar key={"key-" + Math.random.toString()} /> */}

@@ -1,11 +1,15 @@
 import { sql } from "@vercel/postgres";
 import bcrypt from "bcrypt";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
 import env from "dotenv";
 
 env.config();
 
+/**
+ * 
+ * @param {NextRequest} request 
+ */
 export async function POST(request) {
    try {
       const token_refresh_fm_cookie = request.cookies.get("refresh_token");
@@ -34,7 +38,7 @@ export async function POST(request) {
          const update = await sql`UPDATE session_access SET code = ${sessionCode} WHERE id = ${sessionId}`;
          if (update) {
             const access_token = jwt.sign({ username, idRole: result.rows[0].id_role, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
-            return NextResponse.json({ message: "success loginin", token: access_token }, { status: 200 });
+            return NextResponse.json({ message: "token refreshed", token: access_token }, { status: 200 });
          }
 
       } else {
@@ -63,6 +67,7 @@ export async function POST(request) {
             
             const update = await sql`UPDATE session_access SET code = ${sessionCode} WHERE id = ${sessionId}`;
             if (update) {
+               request.cookies.set("refresh_token", result.rows[0].token_refresh, { httpOnly: true, sameSite: "strict"});
                const access_token = jwt.sign({ username, idRole: result.rows[0].id_role, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
                return NextResponse.json({ message: "success loginin", token: access_token, error: false }, { status: 200 });
             }
@@ -79,7 +84,7 @@ export async function POST(request) {
 }
 
 const verifyAcessRevoking = async (decoded_access_token, decoded_refresh_token) => {
-   const accessCode_fm_token = decoded_access_token.payload.sessionAccessCode;
+   const accessCode_fm_token = decoded_access_token.payload.sessionCode;
    const accessCode_fm_db = await sql`SELECT code FROM session_access WHERE id = ${decoded_refresh_token.payload.sessionId}`;
 
    return accessCode_fm_token !== accessCode_fm_db.rows[0].code;
