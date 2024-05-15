@@ -65,7 +65,7 @@
 }
 
 .hamburger-menu {
-   display: none;
+   display: block;
    width: 1.6em;
    position: relative;
    height: 1.2em;

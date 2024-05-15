@@ -1,11 +1,6 @@
 import Link from "next/link";
-import useCaches from "./utils/useCaches";
 
 const NotFound = () => {
-	const cache = useCaches();
-
-	const homeLink = cache.getCache("userLevel") ? "/dashboard" : "/home";
-
 	return (
 		<main
 			style={{
@@ -34,7 +29,7 @@ const NotFound = () => {
 			<div>
 				<span>Kembali ke halaman utama </span>
 				<Link 
-               href={homeLink}
+               href='/home'
                style={{
                   padding: "0.2em 0.7em",
                   borderRadius: "0.5em",

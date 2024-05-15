@@ -1,25 +1,27 @@
 import { sql } from "@vercel/postgres";
 import bcrypt from "bcrypt";
 import { NextRequest, NextResponse } from "next/server";
+import { cookies } from "next/headers";
 import jwt from "jsonwebtoken";
 import env from "dotenv";
 
 env.config();
 
 /**
- * 
  * @param {NextRequest} request 
  */
 export async function POST(request) {
+   const cookie = cookies();
+
    try {
-      const token_refresh_fm_cookie = request.cookies.get("refresh_token");
+      const token_refresh_fm_cookie = cookie.get("refresh_token");
       const token_access = request.headers['authorization'];
 
       
       if (token_refresh_fm_cookie && token_access) {
          // if user have token_refresh in cookie
          const decodeAccess = jwt.verify(token_access, process.env.JWT_SECRET, { algorithm: "HS256", complete: true });
-         const decodedRefresh = jwt.verify(token_refresh_fm_cookie, process.env.JWT_SECRET, { algorithm: "HS256", complete: true });
+         const decodedRefresh = jwt.verify(token_refresh_fm_cookie.value, process.env.JWT_SECRET, { algorithm: "HS256", complete: true });
          
          if (!decodedRefresh || !verifyAcessRevoking(decodeAccess, decodedRefresh)) {
             if (accessCode_fm_token !== accessCode_fm_db) {
@@ -36,9 +38,10 @@ export async function POST(request) {
 
 
          const update = await sql`UPDATE session_access SET code = ${sessionCode} WHERE id = ${sessionId}`;
-         if (update) {
-            const access_token = jwt.sign({ username, idRole: result.rows[0].id_role, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
-            return NextResponse.json({ message: "token refreshed", token: access_token }, { status: 200 });
+         const setIslogin = await sql`UPDATE users SET islogin = true WHERE username = ${decodeAccess.payload.username}`;
+         if (update && setIslogin) {
+            const access_token = jwt.sign({ username, idRole: decodeAccess.payload.idRole, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
+            return NextResponse.json({ message: "token refreshed", error: false, token: access_token, userLevel: decodeAccess.payload.idRole }, { status: 200 });
          }
 
       } else {
@@ -66,10 +69,11 @@ export async function POST(request) {
             
             
             const update = await sql`UPDATE session_access SET code = ${sessionCode} WHERE id = ${sessionId}`;
-            if (update) {
-               request.cookies.set("refresh_token", result.rows[0].token_refresh, { httpOnly: true, sameSite: "strict"});
+            const setIslogin = await sql`UPDATE users SET islogin = true WHERE username = ${username}`;
+            if (update && setIslogin) {
+               cookie.set("refresh_token", result.rows[0].token_refresh, { sameSite: "strict", secure: true});
                const access_token = jwt.sign({ username, idRole: result.rows[0].id_role, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
-               return NextResponse.json({ message: "success loginin", token: access_token, error: false }, { status: 200 });
+               return NextResponse.json({ message: "success loginin", token: access_token, userLevel: result.rows[0].id_role, error: false }, { status: 200 });
             }
    
          } else {
@@ -87,7 +91,7 @@ const verifyAcessRevoking = async (decoded_access_token, decoded_refresh_token) 
    const accessCode_fm_token = decoded_access_token.payload.sessionCode;
    const accessCode_fm_db = await sql`SELECT code FROM session_access WHERE id = ${decoded_refresh_token.payload.sessionId}`;
 
-   return accessCode_fm_token !== accessCode_fm_db.rows[0].code;
+   return accessCode_fm_token == accessCode_fm_db.rows[0].code;
 }
 
 const generateAccessSession = () => {

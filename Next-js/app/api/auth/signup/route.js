@@ -5,12 +5,15 @@ import { NextResponse } from "next/server";
 import { ROLE_SISWA } from "@/utils/apiMetaData";
 import jwt from "jsonwebtoken";
 import env from "dotenv";
+import { cookies } from "next/headers";
 
 
 env.config();
 
 
 export async function POST(request) {
+	const cookie = cookies();
+
 	try {
 		// USER DATA'S
 		const user = await request.formData();
@@ -19,8 +22,8 @@ export async function POST(request) {
 		const hash_password = await bcrypt.hash(user.get("password"), 10);
 		const namaLengkap   = user.get("namaLengkap");
 		const nomorWhatsApp = user.get("nomorWhatsApp");
-		const photoProfile  = user.get("photoProfile");
 		const noAbsen       = user.get("noAbsen");
+		const photoProfile  = user.get("photoProfile") ? user.get("photoProfile") : null;
 
 		const idRole = ROLE_SISWA;
 
@@ -67,19 +70,20 @@ export async function POST(request) {
 
 
 		// ---INSERT USER DATA---
-		const registerResult = await sql`INSERT INTO users (id, username, password, nama_lengkap, no_whatsapp, photo_profile, no_absen, id_role, token_refresh) VALUES (DEFAULT, ${username}, ${hash_password}, ${namaLengkap}, ${nomorWhatsApp}, ${fileUrl}, ${noAbsen}, ${idRole}, ${refresh_token})`
+		const registerResult = await sql`INSERT INTO users (id, username, password, nama_lengkap, no_whatsapp, photo_profile, no_absen, id_role, token_refresh, islogin) VALUES (DEFAULT, ${username}, ${hash_password}, ${namaLengkap}, ${nomorWhatsApp}, ${fileUrl}, ${noAbsen}, ${idRole}, ${refresh_token}, true)`
 
 
 
 		// RESPONSE
 		if (refresh_token && access_token && registerResult) {
-			request.cookies.set("refresh_token", refresh_token, { httpOnly: true, sameSite: "strict"});
+			cookie.set("refresh_token", refresh_token, { ameSite: "strict", secure: true});
 
 			return NextResponse.json(
 				{
 					message: "You Has Been Registered",
 					token: access_token,
-					error : false
+					error : false,
+					userLevel: idRole
 				},
 				{ status: 201 }
 			);

@@ -11,9 +11,8 @@ env.config();
  */
 export async function POST(request) {
    // const { token_refresh, token_access } = await request.json();
-   const token_refresh = request.cookies.get("refresh_token");
+   const token_refresh = request.cookies.get("refresh_token").value;
    const token_access = request.headers.get("authorization");
-
 
    try {
       if (token_refresh && token_access) {

@@ -14,7 +14,6 @@ class Cookie {
       this.createdAt = this.#date.getTime()
       this.expires = expires ? this.#numToStrExpires(expires) : null
       
-      this.#updateCookie()
    }
    
    // private method

@@ -37,6 +37,14 @@
 	background: #fff;
 }
 
+.login-page form .inp_container label {
+	display: block;
+	text-align: left;
+	margin-bottom: 0.5em;
+}
+
+
+
 .login-page .akun {
 	margin: -5px 0 20px 5px;
 	color: #0a0a0a;

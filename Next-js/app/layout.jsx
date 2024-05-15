@@ -1,5 +1,7 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
+import NavigationEvents from './components/navigationEvents'
+import { Suspense } from 'react'
 import LoadingBar from './components/loadingBar'
 
 
@@ -11,6 +13,7 @@ export const metadata = {
 }
 
 export default function RootLayout({ children }) {
+
 	return (
 		<html lang="id">
 			<head>
@@ -18,7 +21,9 @@ export default function RootLayout({ children }) {
 				<link rel="shortcut icon" href="/icon.png" type="image/x-icon" />
 			</head>
 			<body className={inter.className}>
-				{/* <LoadingBar key={"key-" + Math.random.toString()} /> */}
+				<Suspense fallback={<LoadingBar />}>
+					<NavigationEvents />
+				</Suspense>
 				{children}
 			</body>
 		</html>

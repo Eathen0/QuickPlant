@@ -1,0 +1,115 @@
+.dashboard-page {
+   font-size: clamp(11pt, 1.5vw, 15pt);
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 2em;
+   padding: 2em;
+}
+
+.dashboard-page > h1 {
+   width: 100%;
+   font-weight: 100;
+}
+
+.dashboard-page > h1 span {
+   color: transparent;
+   background-image: linear-gradient(#0029FF, #ABF0FF);
+   background-clip: text;
+   -webkit-background-clip: text;
+}
+
+.dashboard-page .container {
+   display: flex;
+   justify-content: space-between;
+   padding: 0 5em;
+   width: 100%;
+}
+
+.dashboard-page .container .list-jadwal {
+   display: grid;
+   grid-template-columns: repeat(3, minmax(15em, 1fr));
+   gap: 1em;
+}
+
+.dashboard-page .container .list-jadwal .title-box {
+   padding: 2em;
+   grid-column: span 3;
+   width: auto;
+   height: 15em;
+   border: #aeb2ff solid 1px;
+   background-image: linear-gradient(135deg, #abb5ff, transparent);
+   border-radius: 1em;
+   box-shadow: 3px 3px 8px 0.2px #80808030;
+}
+
+.dashboard-page .container .list-jadwal .title-box h1 {
+   font-size: 1.5em;
+   color: white;
+   font-weight: 100;
+   margin-bottom: 1em;
+}
+
+.dashboard-page .container .list-jadwal .title-box ul {
+   color: white;
+   text-shadow: 1px 1px 2px #00000029;
+}
+
+.dashboard-page .container .list-jadwal .title-box ul li {
+   padding: 0.2em 0em 0.2em 1em;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   box-shadow: 0px 1px 2px #00000029;
+   border-radius: 99999px;
+}
+
+.dashboard-page .container .list-jadwal .title-box ul li:not(:last-child) {
+   margin-bottom: 0.5em;
+}
+
+
+.dashboard-page .container .list-jadwal .item {
+   width: 15em;
+   position: relative;
+   height: 15em;
+   padding: 2em;
+   border: #aeb2ff solid 1px;
+   background-image: linear-gradient(135deg, #abb5ff 50%, transparent);
+   box-shadow: 3px 3px 8px 0.2px #80808030;
+   border-radius: 1em;
+}
+
+.dashboard-page .container .list-jadwal .item h1 {
+   font-size: 1.5em;
+   color: white;
+   font-weight: 100;
+   text-shadow: 1px 1px 2px #00000029;
+   margin-bottom: 1em;
+}
+
+.dashboard-page .container .list-jadwal .item button {
+   position: absolute;
+   bottom: 2em;
+   right: 2em;
+}
+
+
+
+
+
+.dashboard-page .container .digital-clock {
+   width: 18em;
+   height: 18em;
+   border-radius: 2em;
+   /* border: #abb5ff solid 3px; */
+   background-image: radial-gradient(#abb5ff, transparent);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+.dashboard-page .container .digital-clock h1 {
+   font-size: 3em;
+   color: white;
+}

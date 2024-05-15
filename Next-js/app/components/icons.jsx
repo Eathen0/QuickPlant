@@ -166,8 +166,9 @@ const Icons = {
 			</defs>
 		</svg>
 	),
-	quickPlant: ({ width, height, color = 'black' }) => (
+	quickPlant: ({ width, height, color = 'black', ...other }) => (
 		<svg
+			{...other}
 			width={width}
 			height={height}
 			viewBox="0 0 162 82"

@@ -91,6 +91,9 @@
    width: 6em;
 }
 
+.landing-page .nav .hamburger-menu {
+   display: none;
+}
 
 
 
