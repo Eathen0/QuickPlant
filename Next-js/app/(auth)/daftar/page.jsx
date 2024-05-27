@@ -6,12 +6,11 @@ import "./style.css";
 import Link from "next/link";
 import { useRef } from "react";
 import { ZodError } from "zod";
-import useCookie from "@/utils/useCookie";
-import useCaches from "@/utils/useCaches";
 import { useRouter } from "next/navigation";
 
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useCaches from "@/utils/useCaches";
 
 
 const Daftar = () => {
@@ -21,11 +20,12 @@ const Daftar = () => {
 	const ref_label_nomorTelepone = useRef();
 	const ref_label_noAbsen = useRef();
 	const router = useRouter();
+	const cahce = useCaches();
 
 	const toastyId = useRef(null);
 
 	/**
-	 * @param {Array | null} errorMessage 
+	 * @param {Array | null} errorMessageStack 
 	 */
 	const oninvalid = (errorMessageStack) => {
 		ref_label_namaLengkap.current.style.color = "green";
@@ -80,10 +80,10 @@ const Daftar = () => {
 	const handdleSubmit = async (event, callback) => {
 		event.preventDefault();
 
+		toastyId.current && toast.dismiss(toastyId.current)
+
 		toastyId.current = toast.loading("Loading...", { autoClose: false, type: "info" });
 
-		const cache = useCaches();
-		const cookie_access = useCookie("access_token");
 		const data = {
 			namaLengkap: event.currentTarget.namaLengkap.value,
 			username: event.currentTarget.username.value,
@@ -102,7 +102,7 @@ const Daftar = () => {
 			formdata.append("photoProfile", event.currentTarget.photoProfile ? event.currentTarget.photoProfile.files[0] : null);
 			Object.entries(data).forEach(([key, value]) => {
 				formdata.append(key, value);
-			});
+			})
 
 			const result = await fetch("/api/auth/signup", {
 				method: "POST",
@@ -112,24 +112,31 @@ const Daftar = () => {
 			const result_data = await result.json();
 			
 			if (result.ok) {
-				cookie_access.updateDataAndExpires(result_data.token, { expires: 7 });
-				sessionStorage.setItem("session", btoa("the user level is : " + result_data.userLevel))
-				cache.setCache("userLevel", result_data.userLevel)
-
 				toast.dismiss(toastyId.current);
-
+				cache.deleteCache("dataUser")
 				router.push('/me/dashboard')
 				return true;
 			}
 
-			alert(result_data.message);
+			toast.update(toastyId.current, { render: `Signup Failed ${result_data.message}`, type: "error", autoClose: 3000, hideProgressBar: false});
+			setTimeout(() => {
+				toast.dismiss(toastyId.current);
+				toastyId.current = null
+			}, 5000)
 
-		
 		} catch (error) {
 			if (error instanceof ZodError) {
+				setTimeout(() => {
+					toast.dismiss(toastyId.current);
+					toastyId.current = null
+				}, 100)
 				callback(error.errors);
 			} else {
-				toast.update(toastyId.current, { render: `Signup Failed ${error.message}`, type: "error", autoClose: 5000 });
+				toast.update(toastyId.current, { render: `Signup Failed ${error.message}`, type: "error", autoClose: 3000, hideProgressBar: false});
+				setTimeout(() => {
+					toast.dismiss(toastyId.current);
+					toastyId.current = null
+				}, 5000)
 			}
 		}
 	}

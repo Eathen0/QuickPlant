@@ -1,17 +1,18 @@
-import { sql } from "@vercel/postgres";
+import jwt from 'jsonwebtoken';
+import env from 'dotenv';
 
-async function varifyToken(decoded_access, decoded_refresh) {
+env.config();
+
+/**
+ * 
+ * @param {import('jsonwebtoken').Jwt} accessToken the jwt acccess token
+ * @returns {import('jsonwebtoken').JwtPayload | false}
+ * @description Verify the access token and return the payload if it is valid and otherwise return false
+ */
+function varifyToken(accessToken) {
    try {
-      if (decoded_refresh && decoded_access) { 
-         const accessCode_fm_token = decoded_access.payload.sessionCode;
-         const accessCode_fm_db = await sql`SELECT code FROM session_access WHERE id = ${decoded_refresh.payload.sessionId}`;      
-   
-         const codeIsMatch = `${accessCode_fm_db.rows[0].code}` == `${accessCode_fm_token}`
-
-         if (codeIsMatch) {
-            return true;
-         }
-      }
+      const decoded = jwt.verify(accessToken, process.env.JWT_ACCESS_SECRET, {complete: true}).payload
+      if (decoded.sub) return decoded
    } catch (error) {}
 
    return false;

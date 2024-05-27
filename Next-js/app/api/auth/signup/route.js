@@ -2,7 +2,6 @@ import { sql } from "@vercel/postgres";
 import { put } from "@vercel/blob";
 import bcrypt from "bcrypt";
 import { NextResponse } from "next/server";
-import { ROLE_SISWA } from "@/utils/apiMetaData";
 import jwt from "jsonwebtoken";
 import env from "dotenv";
 import { cookies } from "next/headers";
@@ -12,6 +11,8 @@ env.config();
 
 
 export async function POST(request) {
+	const originalDate = new Date()
+   const localDate = new Date(originalDate.getTime() - originalDate.getTimezoneOffset() * 60000)
 	const cookie = cookies();
 
 	try {
@@ -19,46 +20,13 @@ export async function POST(request) {
 		const user = await request.formData();
 
 		const username      = user.get("username");
-		const hash_password = await bcrypt.hash(user.get("password"), 10);
+		const hash_password = await bcrypt.hash(user.get("password"), parseInt(process.env.BCRYPT_SALT));
 		const namaLengkap   = user.get("namaLengkap");
 		const nomorWhatsApp = user.get("nomorWhatsApp");
 		const noAbsen       = user.get("noAbsen");
 		const photoProfile  = user.get("photoProfile") ? user.get("photoProfile") : null;
 
-		const idRole = ROLE_SISWA;
-
-
-
-		// validating username
-		const usernameResult = await sql`SELECT username FROM users WHERE username = ${username}`;
-		if (usernameResult.rows[0]) {
-			return NextResponse.json(
-				{ 
-					message: "username is already taken",
-					error: true
-				},
-				{ status: 400 }
-			);
-		}
-
-
-
-		// ---SESSION ACCESS CODE---
-		const sessionCode = generateAccessSession();
-
-
-
-		// JWT ---REFRESH TOKEN--- SIGN
-		const insert = await sql`INSERT INTO session_access (id, code) VALUES(DEFAULT, ${sessionCode})`;
-		if (insert) {
-			const result = await sql`SELECT id FROM session_access WHERE code = ${sessionCode}`;
-			var refresh_token = jwt.sign({ sessionId: result.rows[0].id }, process.env.JWT_SECRET, { algorithm: "HS256" });
-		}
-
-
-
-		// JWT ---ACCESS TOKEN--- SIGN
-		let access_token = jwt.sign({ username, idRole, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
+		const idRole = process.env.ROLE_SISWA;
 
 
 
@@ -68,37 +36,41 @@ export async function POST(request) {
 		}
 
 
+		const refreshId = generateAccessSession();
+
 
 		// ---INSERT USER DATA---
-		const registerResult = await sql`INSERT INTO users (id, username, password, nama_lengkap, no_whatsapp, photo_profile, no_absen, id_role, token_refresh, islogin) VALUES (DEFAULT, ${username}, ${hash_password}, ${namaLengkap}, ${nomorWhatsApp}, ${fileUrl}, ${noAbsen}, ${idRole}, ${refresh_token}, true)`
-
+		const registerResult = await sql`INSERT INTO users (id, username, password, nama_lengkap, no_whatsapp, photo_profile, no_absen, id_role, refresh_id, latest_login) VALUES 
+			(DEFAULT, ${username}, ${hash_password}, ${namaLengkap}, ${nomorWhatsApp}, ${fileUrl}, ${noAbsen}, ${idRole}, ${refreshId}, ${localDate.toISOString().substring(0, 10)}) RETURNING id`
 
 
 		// RESPONSE
-		if (refresh_token && access_token && registerResult) {
-			cookie.set("refresh_token", refresh_token, { ameSite: "strict", secure: true});
+		const refreshToken = jwt.sign({idRole}, process.env.JWT_REFRESH_SECRET, {expiresIn: '7d', jwtid: refreshId, subject: String(registerResult.rows[0].id)})
+		const accessToken = jwt.sign({idRole}, process.env.JWT_ACCESS_SECRET, {expiresIn: '1h', subject: String(registerResult.rows[0].id)})
 
-			return NextResponse.json(
-				{
-					message: "You Has Been Registered",
-					token: access_token,
-					error : false,
-					userLevel: idRole
-				},
-				{ status: 201 }
-			);
-		} else {
+		cookie.set(process.env.REFRESH_TOKEN_NAME, refreshToken, { httpOnly: true, secure: true, sameSite: 'none', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
+		cookie.set(process.env.ACCESS_TOKEN_NAME, accessToken, { httpOnly: true, secure: true, sameSite: 'none', expires: new Date(Date.now() + 60 * 60 * 1000) })
+
+
+		return NextResponse.json(
+			{
+				message: "You Has Been Registered",
+				error : false,
+			},
+			{ status: 201 }
+		);
+
+	} catch (error) {
+		console.log(error.message);
+		if (error.code == '23505') {
 			return NextResponse.json(
 				{ 
-					message: "some data is missing",
+					message: "username is already taken",
 					error: true
 				},
 				{ status: 400 }
 			);
 		}
-
-	} catch (error) {
-		console.log(error.message);
 		return NextResponse.json(
 			{ 
 				message: "something wrong in server",
@@ -117,7 +89,7 @@ const generateAccessSession = () => {
 	const characters = "ABC$D&EFG&H$IJKLMN_OPQRS_TUVWXY$Z_012345_67$89abc$defghij$klm_n&opqr$stuvwxyz";
 	const charactersLength = characters.length;
 	
-	for (let counter = 0; counter < 25; counter++) {
+	for (let counter = 0; counter < 15; counter++) {
 		result += characters.charAt(Math.floor(Math.random() * charactersLength));
 	}
 	return result;

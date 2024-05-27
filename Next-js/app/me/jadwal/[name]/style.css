@@ -1,0 +1,46 @@
+.jadwal-page {
+	background-image: url("/assets/website-bg.png");
+	background-size: cover;
+	background-position: center;
+	min-height: 100svh;
+}
+.jadwal-page .piket {
+   padding-top: 100px;
+	text-align: center;
+}
+.jadwal-page img {
+	border-radius: 50%;
+	height: 200px;
+}
+.jadwal-page .box img {
+	border-radius: 50%;
+	height: 50px;
+	justify-content: right;
+}
+.jadwal-page .piket h1 {
+	color: black;
+}
+.jadwal-page .box {
+	background-color: #86add7;
+	border-radius: 25px;
+	margin: 0 1rem;
+	height: 70px;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	padding-left: 20px;
+	align-items: center;
+	margin: 40px;
+}
+.jadwal-page .box button {
+	/* flex-basis: 50%; */
+	background: -webkit-linear-gradient(right, #7eb2ff, #004dc1);
+	color: #f8f8f8;
+	height: 40px;
+	width: 150px;
+	border-radius: 25px;
+	margin-right: 1rem;
+	border: none;
+	cursor: pointer;
+	font-size: 100%;
+}

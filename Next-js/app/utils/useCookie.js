@@ -13,7 +13,6 @@ class Cookie {
       this.data = data
       this.createdAt = this.#date.getTime()
       this.expires = expires ? this.#numToStrExpires(expires) : null
-      
    }
    
    // private method

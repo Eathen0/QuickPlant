@@ -3,11 +3,11 @@
 import useCaches from '@/utils/useCaches';
 import './style.css'
 import { useEffect, useRef, useState } from 'react';
-import useCookie from '@/utils/useCookie';
 
 import { Bounce, ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Capriola } from 'next/font/google';
+import Link from 'next/link';
 
 
 const capriola = Capriola({
@@ -20,7 +20,6 @@ const Dashboard = () => {
    
    const cache = useCaches();
 	const [dataUser, setDataUser] = useState(Object);
-	const token_access = useCookie("access_token");
    const [clock, setClock] = useState(date.toTimeString().substring(0, 5));
    
 	const toastId = useRef(null);
@@ -31,22 +30,34 @@ const Dashboard = () => {
          setClock(date.toTimeString().substring(0, 5));
       }, 1000);
 
-		if (!cache.getCache("dataUser")) {
-			toastId.current = toast.loading("loading data user...", { autoClose: false });
-			fetch("/api/data/users", { method: "GET", headers: { authorization: token_access.isExist() } })
-			.then(response => response.json())
-			.then(data => {
-				if (!data.error) {
-					toast.dismiss(toastId.current)
-					cache.setCache("dataUser", data.data)
-					setDataUser(data.data)
-				} else {
-					toast.update(toastId.current, { render: `error ${data.message}`, type: "error", autoClose: 5000})
-				}
-			})
-		} else {
-			setDataUser(cache.getCache("dataUser"))
-		}
+		(function getData () {
+			if (!cache.getCache("dataUser")) {
+				toastId.current = toast.loading("loading data user...", { autoClose: false });
+				fetch("/api/data/users", { method: "GET", credentials: "same-origin" })
+				.then(response => {
+					if (response.status === 401) {
+						fetch('/api/auth/refresh', { method: 'POST', credentials: 'same-origin' }).then(response => {
+							if (response.ok) getData()
+						})
+					}
+					return response.json()
+				})
+				.then(data => {
+					if (!data.error) {
+						toast.dismiss(toastId.current)
+						const dataFix = { ...data.data, leter_profile: data.data.nama_lengkap.substring(0, 2).toLowerCase() }
+
+						cache.setCache("dataUser", dataFix)
+						setDataUser(dataFix)
+					} else {
+						toast.update(toastId.current, { render: `error ${data.message}`, type: "error", autoClose: 5000})
+						setTimeout(() => toast.dismiss(toastId.current), 50000);
+					}
+				})
+			} else {
+				setDataUser(cache.getCache("dataUser"))
+			}
+		})()
 	}, [])
 
    return (
@@ -73,27 +84,27 @@ const Dashboard = () => {
 
 						<div className="item i1">
 							<h1>Jadwal Piket Masjid / Mushola</h1>
-							<button className='btn btn-primary'>Lihat</button>
+							<Link href='/me/jadwal/Piket_Masjid_Mushola' className='btn btn-primary'>Lihat</Link>
 						</div>
 						<div className="item i2">
 							<h1>Jadwal Piket Kelas</h1>
-							<button className='btn btn-primary'>Lihat</button>
+							<Link href='/me/jadwal/Piket_Kelas' className='btn btn-primary'>Lihat</Link>
 						</div>
 						<div className="item i3">
-							<h1>Jadwal Piket Al-Barzanji</h1>
-							<button className='btn btn-primary'>Lihat</button>
+							<h1>Jadwal Al-Barzanji</h1>
+							<Link href='/me/jadwal/Al-Barzanji' className='btn btn-primary'>Lihat</Link>
 						</div>
 						<div className="item i4">
 							<h1>Jadwal Piket Kantin</h1>
-							<button className='btn btn-primary'>Lihat</button>
+							<Link href='/me/jadwal/Piket_Kantin' className='btn btn-primary'>Lihat</Link>
 						</div>
 						<div className="item i5">
 							<h1>Jadwal Jumcer</h1>
-							<button className='btn btn-primary'>Lihat</button>
+							<Link href='/me/jadwal/Jumcer' className='btn btn-primary'>Lihat</Link>
 						</div>
 						<div className="item i6">
 							<h1>Jadwal Pelajaran</h1>
-							<button className='btn btn-primary'>Lihat</button>
+							<Link href='/me/jadwal/Pelajaran' className='btn btn-primary'>Lihat</Link>
 						</div>
                </div>
 

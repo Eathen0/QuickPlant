@@ -45,13 +45,13 @@
 
 .dashboard-page .container .list-jadwal .title-box h1 {
    font-size: 1.5em;
-   color: white;
+   color: black;
    font-weight: 100;
    margin-bottom: 1em;
 }
 
 .dashboard-page .container .list-jadwal .title-box ul {
-   color: white;
+   color: black;
    text-shadow: 1px 1px 2px #00000029;
 }
 
@@ -82,13 +82,13 @@
 
 .dashboard-page .container .list-jadwal .item h1 {
    font-size: 1.5em;
-   color: white;
+   color: black;
    font-weight: 100;
    text-shadow: 1px 1px 2px #00000029;
    margin-bottom: 1em;
 }
 
-.dashboard-page .container .list-jadwal .item button {
+.dashboard-page .container .list-jadwal .item a {
    position: absolute;
    bottom: 2em;
    right: 2em;
@@ -111,5 +111,5 @@
 
 .dashboard-page .container .digital-clock h1 {
    font-size: 3em;
-   color: white;
+   color: black;
 }

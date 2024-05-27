@@ -13,95 +13,81 @@ env.config();
 export async function POST(request) {
    const cookie = cookies();
 
-   try {
-      const token_refresh_fm_cookie = cookie.get("refresh_token");
-      const token_access = request.headers['authorization'];
+   const url = request.url
+   const { protocol, host } = new URL(url);
+   const domain = `${protocol}//${host}`;
 
-      
-      if (token_refresh_fm_cookie && token_access) {
-         // if user have token_refresh in cookie
-         const decodeAccess = jwt.verify(token_access, process.env.JWT_SECRET, { algorithm: "HS256", complete: true });
-         const decodedRefresh = jwt.verify(token_refresh_fm_cookie.value, process.env.JWT_SECRET, { algorithm: "HS256", complete: true });
-         
-         if (!decodedRefresh || !verifyAcessRevoking(decodeAccess, decodedRefresh)) {
-            if (accessCode_fm_token !== accessCode_fm_db) {
-               return NextResponse.json({ message: "token is invalid", error: true }, { status: 401 });
-            }
-         }
-
-         const sessionId = decodedRefresh.payload.sessionId;
-
-
-         // generate new session access code
-         const sessionCode = generateAccessSession();
-
-
-
-         const update = await sql`UPDATE session_access SET code = ${sessionCode} WHERE id = ${sessionId}`;
-         const setIslogin = await sql`UPDATE users SET islogin = true WHERE username = ${decodeAccess.payload.username}`;
-         if (update && setIslogin) {
-            const access_token = jwt.sign({ username, idRole: decodeAccess.payload.idRole, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
-            return NextResponse.json({ message: "token refreshed", error: false, token: access_token, userLevel: decodeAccess.payload.idRole }, { status: 200 });
-         }
-
-      } else {
-         // if useer not have token_refresh in cookie
-         const { username, password } = await request.json();
-
-         
-         
-         const result = await sql`SELECT token_refresh, password, id_role FROM users WHERE username = ${username}`;
-         if (!result.rows[0]) {
-            return NextResponse.json({ message: `username "${username}" is not registered in server`, error: true }, { status: 400 });
-         }
-
-
-
-         const isPasswordValid = bcrypt.compareSync(password, result.rows[0].password)
-         if (isPasswordValid) {      
-            const decoded = jwt.verify(result.rows[0].token_refresh, process.env.JWT_SECRET, { algorithm: "HS256", complete: true });
-            const sessionId = decoded.payload.sessionId;
-
-
-            // generate new session access code
-            const sessionCode = generateAccessSession();
-
-            
-            
-            const update = await sql`UPDATE session_access SET code = ${sessionCode} WHERE id = ${sessionId}`;
-            const setIslogin = await sql`UPDATE users SET islogin = true WHERE username = ${username}`;
-            if (update && setIslogin) {
-               cookie.set("refresh_token", result.rows[0].token_refresh, { sameSite: "strict", secure: true});
-               const access_token = jwt.sign({ username, idRole: result.rows[0].id_role, sessionCode }, process.env.JWT_SECRET, { expiresIn: '7d', algorithm: "HS256" });
-               return NextResponse.json({ message: "success loginin", token: access_token, userLevel: result.rows[0].id_role, error: false }, { status: 200 });
-            }
+   const __cookie = cookie.get(process.env.REFRESH_TOKEN_NAME)
+   const prev_refreshToken = __cookie && __cookie.value
+   const originalDate = new Date()
+   const localDate = new Date(originalDate.getTime() - originalDate.getTimezoneOffset() * 60000)
    
-         } else {
-            return NextResponse.json({ message: "password is wrong", error: true }, { status: 400 });
+   try {
+      console.log(prev_refreshToken)
+      if (prev_refreshToken) {
+         try {
+            const result = await fetch(`${domain}/api/auth/authorize`, {body: JSON.stringify({refreshToken: prev_refreshToken}), method: 'POST', headers: {'Content-Type': 'application/json'}})
+            if (result.ok) {
+               const { accessToken, refreshToken } = await result.json()
+
+               cookie.delete(process.env.REFRESH_TOKEN_NAME)
+               cookie.delete(process.env.ACCESS_TOKEN_NAME)
+               cookie.set(process.env.REFRESH_TOKEN_NAME, refreshToken, { httpOnly: true, secure: true, sameSite: 'none', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) });
+               cookie.set(process.env.ACCESS_TOKEN_NAME, accessToken, {httpOnly: true, secure: true, sameSite: 'none', expires: new Date(Date.now() + 60 * 60 * 1000)})
+
+               return NextResponse.json({ message: 'You are Authorized', error: false }, { status: 200 })
+            }
+         } catch (err) {
+            console.log(err)
          }
       }
 
+      const { username, password } = await request.json()
+   
+      if (!username || !password) {
+         return NextResponse.json({ message: 'all field required', error: true }, { status: 400 })
+      } 
+      
+      const refreshId = generateRandomString(10)
+   
+      const result = await sql`SELECT id, id_role, password FROM users WHERE username = ${username}`
+      if (result.rows.length <= 0) {
+         return NextResponse.json({ message: 'username not found', error: true }, { status: 400 })
+      }
+
+      const match = await bcrypt.compare(password, result.rows[0].password)
+      if (!match) {
+         return NextResponse.json({ message: 'password is incorect', error: true }, { status: 401 })
+      }
+
+      await sql`UPDATE users SET latest_login = ${localDate.toISOString().substring(0, 10)}, refresh_id = ${refreshId} WHERE id = ${result.rows[0].id}`
+
+
+      const refreshToken = jwt.sign({idRole: result.rows[0].idRole}, process.env.JWT_REFRESH_SECRET, {expiresIn: '7d', jwtid: refreshId, subject: String(result.rows[0].id)})
+      const accessToken = jwt.sign({idRole: result.rows[0].idRole}, process.env.JWT_ACCESS_SECRET, {expiresIn: '1h', subject: String(result.rows[0].id)})
+
+      cookie.delete(process.env.REFRESH_TOKEN_NAME)
+      cookie.delete(process.env.ACCESS_TOKEN_NAME)
+      cookie.set(process.env.REFRESH_TOKEN_NAME, refreshToken, {httpOnly: true, secure: true, sameSite: 'none', expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)})
+      cookie.set(process.env.ACCESS_TOKEN_NAME, accessToken, {httpOnly: true, secure: true, sameSite: 'none', expires: new Date(Date.now() + 60 * 60 * 1000)})
+
+      return NextResponse.json({ message: 'Successfull login', error: false }, { status: 200 })
+
    } catch (error) {
       console.log(error.message)
-      return NextResponse.json({ message: "something wrong in server", error: true }, {status: 500});
+      if (error.message === 'Unexpected end of JSON input') {
+         return NextResponse.json({ message: 'all field required', error: true }, { status: 400 })
+      }
+      return NextResponse.json({ message: 'There was an error', error: true }, { status: 500 })
    }
 }
 
-const verifyAcessRevoking = async (decoded_access_token, decoded_refresh_token) => {
-   const accessCode_fm_token = decoded_access_token.payload.sessionCode;
-   const accessCode_fm_db = await sql`SELECT code FROM session_access WHERE id = ${decoded_refresh_token.payload.sessionId}`;
-
-   return accessCode_fm_token == accessCode_fm_db.rows[0].code;
+function generateRandomString(length) {
+   let result = '';
+   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   const charactersLength = characters.length;
+   for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
 }
-
-const generateAccessSession = () => {
-	let result = "";
-	
-	const characters = "ABC$D&EFG&H$IJKLMN_OPQRS_TUVWXY$Z_012345_67$89abc$defghij$klm_n&opqr$stuvwxyz";
-	const charactersLength = characters.length;
-	
-	for (let counter = 0; counter < 25; counter++) {
-		result += characters.charAt(Math.floor(Math.random() * charactersLength));
-	}
-	return result;
-};

@@ -4,12 +4,13 @@
 	--col-secondary: #00D1FF;
 	--col-secondary-2: #ABF0FF;
 	--col-third: #0029FF;
+	--col-danger: red;
+	--col-success: rgb(97, 0, 201);
 
 	--col-black-50opc: rgba(0, 0, 0, 0.5);
 
 	--col-gradient-primary: linear-gradient(45deg, var(--col-primary-2), var(--col-secondary-2));
 	--col-gradient-secondary: linear-gradient(45deg, var(--col-primary), var(--col-third));
-	
 	scroll-behavior: smooth;
 }
 
@@ -47,12 +48,27 @@
 	font-size: 0.8em;
 	padding: 0.7em 2em;
 	border-radius: 99999px;
+	box-shadow: 1px 1px 3px 0px rgba(0, 0, 0, .3);
 }
 
 .btn-primary {
 	background: var(--col-gradient-primary);
    color: white !important;
 } .btn-primary * {
+   color: white !important;
+}
+
+.btn-danger {
+	background: var(--col-danger);
+   color: white !important;
+} .btn-danger * {
+   color: white !important;
+}
+
+.btn-success {
+	background: var(--col-success);
+   color: white !important;
+} .btn-success * {
    color: white !important;
 }
 
